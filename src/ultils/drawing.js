@@ -13,6 +13,28 @@ const drawHexagon = (layer, startPoint) => {
           V${y2}Z`
 }
 
+const drawPyramid = (layer, startPoint) => {
+  const { y2, y4, y5 } = getPoints(layer, startPoint)
+  return `M168 ${y2}
+          L0 ${y4}
+          L168 ${y5}
+          L336 ${y4}Z`
+}
+
+const drawPolygonLeft2 = (layer, startPoint) => {
+  const { y2, y4, y5 } = getPoints(layer, startPoint)
+  return `M168 ${y2},
+          L336 ${y4}
+          L168 ${y5}Z`
+}
+
+const drawPolygonRight2 = (layer, startPoint) => {
+  const { y2, y4, y5 } = getPoints(layer, startPoint)
+  return `M168 ${y2},
+          L0 ${y4}
+          L168 ${y5}Z`
+}
+
 const drawCircuit = (layer, startPoint) => {
   const { y1, y2, y3, y4, y5 } = getPoints(layer, startPoint)
   return `M0 ${y2},
@@ -61,10 +83,10 @@ const getPoints = (layer, startPoint) => {
 
 export function drawLayer (layer, startPoint) {
   return {
-    shape: drawHexagon(layer, startPoint),
+    shape: layer.type === 1 ? drawHexagon(layer, startPoint) : drawPyramid(layer, startPoint),
     circuit: drawCircuit(layer, startPoint),
     polygonTop: drawPolygonTop(layer, startPoint),
-    polygonRight: drawPolygonRight(layer, startPoint),
-    polygonLeft: drawPolygonLeft(layer, startPoint)
+    polygonRight: layer.type === 1 ? drawPolygonRight(layer, startPoint) : drawPolygonRight2(layer, startPoint),
+    polygonLeft: layer.type === 1 ? drawPolygonLeft(layer, startPoint) : drawPolygonLeft2(layer, startPoint)
   }
 }
