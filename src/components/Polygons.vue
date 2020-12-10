@@ -1,8 +1,6 @@
 <template>
-  <g>
-    <slot name="polygon-top"></slot>
-    <slot name="polygon-left"></slot>
-    <slot name="polygon-right"></slot>
+  <g class="layer__decor">
+    <slot></slot>
   </g>
 </template>
 

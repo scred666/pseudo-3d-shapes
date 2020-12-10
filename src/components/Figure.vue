@@ -3,35 +3,32 @@
        :height="totalHeight"
        xmlns="http://www.w3.org/2000/svg"
        :viewBox="`0 0 336 ${totalHeight}`">
-    <Layer v-for="(layer, i) in reversedLayers" :key="i" :fill="layer.fill" :layer="getLayer(layer)" />
+    <Layer v-for="(layer, i) in reversedLayers" :type="layer.type" :key="i"
+           :fill="layer.fill"
+           :layer="getLayer(layer, i)"/>
     <defs>
       <linearGradient id="polygon-top" x1="0%" y1="100%" x2="0%" y2="0%">
-        <stop stop-color="white" stop-opacity="0.7"></stop>
-        <stop offset="1" stop-color="white" stop-opacity="0.4"></stop>
+        <stop stop-color="white" stop-opacity="0.7"/>
+        <stop offset="1" stop-color="white" stop-opacity="0.4"/>
       </linearGradient>
     </defs>
   </svg>
 </template>
 
 <script>
-import { getTotalHeight, drawLayer, rhombusHeight } from '@/ultils/drawing'
+import { getTotalHeight, drawLayer, calculateStartPoints } from '@/utils/drawing'
 import { mapState } from 'vuex'
 import Layer from '@/components/Layer'
+
 export default {
   name: 'Figure',
   components: {
     Layer
   },
   methods: {
-    getLayer (layer) {
-      return drawLayer(layer, this.startPoint(layer.height))
+    getLayer (layer, index) {
+      return drawLayer(layer, this.startPoints[index])
     }
-    // getHexagon (layer) {
-    //   return drawHexagon(layer, this.startPoint(layer.height))
-    // },
-    // getCircuit (layer) {
-    //   return drawHexagon2(layer, this.startPoint(layer.height))
-    // }
   },
   computed: {
     ...mapState({
@@ -43,12 +40,8 @@ export default {
     totalHeight () {
       return getTotalHeight(this.layers)
     },
-    startPoint () {
-      return (function (totalHeight) {
-        return function (layerHeight) {
-          return (totalHeight -= layerHeight) - rhombusHeight
-        }
-      }(this.totalHeight))
+    startPoints () {
+      return calculateStartPoints(this.totalHeight, this.reversedLayers)
     }
   }
 }
