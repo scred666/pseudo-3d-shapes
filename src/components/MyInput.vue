@@ -1,5 +1,5 @@
 <template>
-  <input type="number" v-model.number="computedHeight">
+  <input type="number" v-model.number="computedHeight" />
 </template>
 
 <script>
@@ -27,6 +27,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

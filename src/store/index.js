@@ -7,16 +7,6 @@ export default new Vuex.Store({
   state: {
     layers: [
       {
-        fill: 'aqua',
-        height: 0,
-        type: 'cylinder'
-      },
-      {
-        fill: '#41b883',
-        height: 120,
-        type: 'cube'
-      },
-      {
         fill: '#F4E23F',
         height: 160,
         type: 'pyramid'

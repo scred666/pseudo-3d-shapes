@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 import MyInput from '@/components/MyInput'
 
 export default {

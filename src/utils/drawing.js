@@ -5,23 +5,9 @@ const triangleWidth = rhombusWidth / 2
 const x1 = 0
 const x2 = triangleWidth
 const x3 = rhombusWidth
-// const a = Math.sqrt(((rhombusWidth / 2) ** 2) + ((rhombusHeight / 2) ** 2))
-// const cylinderRadius = (rhombusWidth * rhombusHeight) / (4 * a)
 
-const d1 = rhombusHeight
-const d2 = rhombusWidth
-const cr = (d1 * d2) / Math.sqrt((d1 ** 2) + (d2 ** 2))
-const triangleHypotenuse = Math.sqrt((triangleHeight ** 2) + (triangleWidth ** 2))
-const rhombusAcuteAngle = Math.acos((d2 ** 2 / (2 * triangleHypotenuse ** 2)) - 1) * (180 / Math.PI)
-const rhombusObtuseAngle = (360 - (rhombusAcuteAngle * 2)) / 2
-const angle = rhombusObtuseAngle - ((180 - (90 + rhombusAcuteAngle)) * 2)
-const side = 2 * cr * Math.sin((angle / 2) * Math.PI / 180)
-const side2 = rhombusHeight - Math.sqrt((cr ** 2) - ((side ** 2) / 4))
-const ratio = triangleHeight / (triangleHeight - side2)
-// const side3 = (side / 2) / ratio
-const crr = cr / ratio
-
-export const getTotalHeight = layers => layers.reduce((acc, val) => acc + val.height, 0) + rhombusHeight
+export const getTotalHeight = layers =>
+  layers.reduce((acc, val) => acc + val.height, 0) + rhombusHeight
 
 export const calculateStartPoints = (totalHeight, layers) => {
   let startPoint = totalHeight - rhombusHeight
@@ -37,24 +23,6 @@ const drawHexagonShape = (layer, startPoint) => {
           L${x3} ${y4}
           V${y2}Z`
 }
-
-const drawHexagonShape2 = (layer, startPoint) => {
-  console.log(crr)
-  const { y1, y5 } = getPoints(layer, startPoint)
-  return `M${x2 - side / 2} ${y1 + side2},
-          A ${cr} ${cr} 0 0 1 ${x2 + side / 2} ${y1 + side2}
-          A ${crr} ${crr} 0 0 1 ${x2 + side / 2} ${y5 - side2}
-          A ${cr} ${cr} 0 0 1 ${x2 - side / 2} ${y5 - side2}
-          A ${crr} ${crr} 0 0 1 ${x2 - side / 2} ${y1 + side2}
-          Z
-          M${x2 + crr} ${y1 + 50}
-          V ${y1 + 100}
-          H ${x2 - crr}
-          V ${y1 + 50}Z`
-}
-
-// M${x2 - cylinderRadius} ${y2}
-// A ${cylinderRadius} ${cylinderRadius} 0 0 0 ${x2 + cylinderRadius} ${y2}Z
 
 const drawHexagonDecor = (layer, startPoint) => {
   const { y1, y2, y3, y4, y5 } = getPoints(layer, startPoint)
@@ -184,29 +152,22 @@ const drawHexagon = (layer, startPoint) => {
 }
 
 const drawPyramid = (layer, startPoint) => {
-  const { circuit, polygonRight, polygonLeft, polygonRightTop } = drawPyramidDecor(layer, startPoint)
+  const { circuit, polygonRight, polygonLeft, polygonRightTop } = drawPyramidDecor(
+    layer,
+    startPoint
+  )
   return {
     shape: drawPyramidShape(layer, startPoint),
     decor: { circuit, polygonRight, polygonLeft, polygonRightTop }
   }
 }
 
-const drawCylinder = (layer, startPoint) => {
-  // const { circuit, polygonTop, polygonRight, polygonLeft } = drawHexagonDecor(layer, startPoint)
-  return {
-    shape: drawHexagonShape2(layer, startPoint),
-    decor: { }
-  }
-}
-
 const types = {
   cube: 'cube',
-  pyramid: 'pyramid',
-  cylinder: 'cylinder'
+  pyramid: 'pyramid'
 }
 
 const getLayer = {
   [types.cube]: (layer, startPoint) => drawHexagon(layer, startPoint),
-  [types.pyramid]: (layer, startPoint) => drawPyramid(layer, startPoint),
-  [types.cylinder]: (layer, startPoint) => drawCylinder(layer, startPoint)
+  [types.pyramid]: (layer, startPoint) => drawPyramid(layer, startPoint)
 }

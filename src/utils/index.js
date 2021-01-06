@@ -5,4 +5,4 @@ export const sumElements = arr => {
     return arr.reduce((acc, val) => acc + val)
   }
 }
-export const isValidNumber = number => (!isNaN(parseFloat(number)) && number >= 0)
+export const isValidNumber = number => !isNaN(parseFloat(number)) && number >= 0
