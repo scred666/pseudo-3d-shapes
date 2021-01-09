@@ -9,19 +9,19 @@
           v-if="layer.decor.polygonTop"
         />
         <Shape
-          opacity="0.3"
+          opacity="0.15"
           :path="layer.decor.polygonLeft"
           fill="white"
           v-if="layer.decor.polygonLeft"
         />
         <Shape
-          opacity="0.3"
+          opacity="0.15"
           :path="layer.decor.polygonRight"
           fill="black"
           v-if="layer.decor.polygonRight"
         />
         <Shape
-          opacity="0.6"
+          opacity="0.3"
           :path="layer.decor.polygonRightTop"
           fill="black"
           v-if="layer.decor.polygonRightTop"
@@ -33,9 +33,9 @@
       v-if="layer.decor.circuit"
       class="layer__circuit"
       fill="none"
-      stroke="#fff"
-      stroke-opacity="0.4"
-      stroke-width="2"
+      stroke="#000"
+      stroke-opacity="1"
+      stroke-width="1"
     />
   </g>
 </template>

@@ -13,7 +13,7 @@ export default new Vuex.Store({
       }
     },
     defaultLayer: {
-      fill: '#41b883',
+      fill: '#006f74',
       height: 120,
       type: 'cube',
       id: null
@@ -21,38 +21,38 @@ export default new Vuex.Store({
     layers: [
       {
         id: 'wn2pf9ruh',
-        fill: '#F4E23F',
+        fill: '#006f74',
         height: 160,
         type: 'pyramid'
       },
       {
         id: '5e5kvp9zq',
-        fill: '#41b883',
-        height: 120,
+        fill: '#81cdc2',
+        height: 100,
         type: 'cube'
       },
       {
         id: 'mafj776kg',
-        fill: '#ff0000',
-        height: 60,
+        fill: '#ffd79c',
+        height: 50,
         type: 'cube'
       },
       {
         id: '9luxy76ua',
-        fill: '#0000ff',
-        height: 60,
+        fill: '#f38c76',
+        height: 70,
         type: 'cube'
       },
       {
         id: 'egi0z6zdg',
-        fill: '#ffa500',
-        height: 60,
+        fill: '#f24e4a',
+        height: 10,
         type: 'cube'
       },
       {
         id: 'kgl48aakt',
-        fill: '#ee82ee',
-        height: 60,
+        fill: '#182e46',
+        height: 40,
         type: 'cube'
       }
     ]

@@ -12,7 +12,9 @@
     >
       <transition-group name="flip-list">
         <div v-for="(layer, i) in layersList" :key="layer.id" class="controls__items-single">
-          <div class="handle">bla</div>
+          <div class="handle">
+            <img src="@/assets/img/drag.svg" alt="::" />
+          </div>
           <my-input :val="layer.height" @updateVal="updateHeight($event, i)" />
           <div class="nav">
             <layer-action-btn @layerAction="moveUp(i)"> ↑ </layer-action-btn>
@@ -122,5 +124,13 @@ export default {
 
 <style scoped lang="sass">
 div
-  color: #fff
+  color: $white
+.handle
+  background: $white
+  line-height: 0
+  cursor: pointer
+  max-width: 20px
+  img
+    width: 100%
+    height: auto
 </style>

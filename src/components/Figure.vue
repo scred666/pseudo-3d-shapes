@@ -1,6 +1,6 @@
 <template>
   <svg
-    width="336"
+    width="338"
     :height="totalHeight"
     xmlns="http://www.w3.org/2000/svg"
     :viewBox="`0 0 336 ${totalHeight}`"
@@ -14,8 +14,8 @@
     />
     <defs>
       <linearGradient id="polygon-top" x1="0%" y1="100%" x2="0%" y2="0%">
-        <stop stop-color="white" stop-opacity="0.7" />
-        <stop offset="1" stop-color="white" stop-opacity="0.4" />
+        <stop stop-color="white" stop-opacity="0.35" />
+        <stop offset="1" stop-color="white" stop-opacity="0.2" />
       </linearGradient>
     </defs>
   </svg>

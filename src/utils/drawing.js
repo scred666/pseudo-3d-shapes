@@ -36,15 +36,25 @@ const drawHexagonDecor = (layer, startPoint) => {
 }
 
 const drawHexagonCircuit = (y1, y2, y3, y4, y5) => {
-  return `M${x1} ${y2},
-          L${x2} ${y3}
-          L${x3} ${y2}
-          L${x2} ${y1}Z
+  // return `M${x1} ${y2},
+  //         L${x2} ${y3}
+  //         L${x3} ${y2}
+  //         L${x2} ${y1}Z
+  //         V${y4}
+  //         M${x2} ${y3}
+  //         V${y5}
+  //         M${x3} ${y2}
+  //         V${y4}`
+  return `M${x1} ${y2}
           V${y4}
+          L${x2} ${y5}
+          V${y3}Z
+          L${x2} ${y1}
+          L${x3} ${y2}
+          V${y4}
+          L${x2} ${y5}
           M${x2} ${y3}
-          V${y5}
-          M${x3} ${y2}
-          V${y4}`
+          L${x3} ${y2}`
 }
 
 const drawHexagonPolygonTop = (y1, y2, y3) => {
@@ -95,20 +105,34 @@ const drawPyramidDecor = (layer, startPoint) => {
 }
 
 const drawPyramidCircuit = (y2, y4, y5, yPyramid, isNeedAddons) => {
-  const circuitExtend = `M${x2} ${y2}
+  // const circuitExtend = `M${x2} ${y2}
+  //                        L${x1} ${y4}
+  //                        M${x3} ${y4}
+  //                        L${x2} ${y2}
+  //                        V ${y5}
+  //                        M${x2} ${yPyramid}
+  //                        L${x1} ${y4}
+  //                        M${x2} ${yPyramid}
+  //                        L${x3} ${y4}Z
+  //                        V ${y2}`
+  const circuitExtend = `M${x2} ${yPyramid}
                          L${x1} ${y4}
-                         M${x3} ${y4}
-                         L${x2} ${y2}
-                         V ${y5}
-                         M${x2} ${yPyramid}
-                         L${x1} ${y4}
-                         M${x2} ${yPyramid}
+                         L${x2} ${y5}
                          L${x3} ${y4}Z
-                         V ${y2}`
+                         V ${y5}
+                         M${x1} ${y4}
+                         L${x2} ${y2}
+                         L${x3} ${y4}
+                         `
+  // const circuit = `M${x2} ${y2}
+  //                  L${x1} ${y4}
+  //                  M${x3} ${y4}
+  //                  L${x2} ${y2}
+  //                  V ${y5}`
   const circuit = `M${x2} ${y2}
                    L${x1} ${y4}
-                   M${x3} ${y4}
-                   L${x2} ${y2}
+                   L${x2} ${y5}
+                   L${x3} ${y4}Z
                    V ${y5}`
   return isNeedAddons ? circuitExtend : circuit
 }
