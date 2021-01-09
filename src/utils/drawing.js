@@ -6,12 +6,14 @@ const x1 = 0
 const x2 = triangleWidth
 const x3 = rhombusWidth
 
-export const getTotalHeight = layers =>
-  layers.reduce((acc, val) => acc + val.height, 0) + rhombusHeight
+export const getTotalHeight = (layers, figureShift) =>
+  layers.reduce((acc, val) => acc + val.height, 0) +
+  rhombusHeight +
+  (layers.length - 1) * figureShift
 
-export const calculateStartPoints = (totalHeight, layers) => {
-  let startPoint = totalHeight - rhombusHeight
-  return layers.map(layer => (startPoint -= layer.height))
+export const calculateStartPoints = (totalHeight, layers, figureShift) => {
+  let startPoint = totalHeight - rhombusHeight + figureShift
+  return layers.map(layer => (startPoint -= layer.height + figureShift))
 }
 
 const drawHexagonShape = (layer, startPoint) => {
@@ -162,7 +164,7 @@ const drawPyramid = (layer, startPoint) => {
   }
 }
 
-const types = {
+export const types = {
   cube: 'cube',
   pyramid: 'pyramid'
 }

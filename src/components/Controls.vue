@@ -11,7 +11,7 @@
       class="controls__items"
     >
       <transition-group name="flip-list">
-        <div v-for="(layer, i) in layersList" :key="i" class="controls__items-single">
+        <div v-for="(layer, i) in layersList" :key="layer.id" class="controls__items-single">
           <div class="handle">bla</div>
           <my-input :val="layer.height" @updateVal="updateHeight($event, i)" />
           <div class="nav">
@@ -20,6 +20,11 @@
             <layer-action-btn @layerAction="removeLayer(i)"> x </layer-action-btn>
           </div>
           <color-input :color="layer.fill" @updateColor="updateColor($event, i)" />
+          <shape-switcher
+            :currentShape="layer.type"
+            :id="layer.id"
+            @selectNewShape="updateType($event, i)"
+          />
         </div>
       </transition-group>
     </draggable>
@@ -34,6 +39,7 @@ import draggable from 'vuedraggable'
 import MyInput from '@/components/MyInput'
 import LayerActionBtn from '@/components/LayerActionBtn'
 import ColorInput from '@/components/ColorInput'
+import ShapeSwitcher from '@/components/ShapeSwitcher'
 
 export default {
   name: 'Controls',
@@ -43,6 +49,7 @@ export default {
     }
   },
   components: {
+    ShapeSwitcher,
     ColorInput,
     LayerActionBtn,
     draggable,
@@ -59,6 +66,13 @@ export default {
       this.UPDATE_LAYER_PARAM({
         index,
         param: 'height',
+        val
+      })
+    },
+    updateType(val, index) {
+      this.UPDATE_LAYER_PARAM({
+        index,
+        param: 'type',
         val
       })
     },

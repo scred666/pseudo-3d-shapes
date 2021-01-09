@@ -1,5 +1,8 @@
 <template>
-  <input type="number" v-model.number="computedHeight" />
+  <div>
+    <input type="number" class="input" v-model.number="computedVal" v-if="!isDisabled" />
+    <div class="input" v-else>{{ computedVal }}</div>
+  </div>
 </template>
 
 <script>
@@ -11,11 +14,14 @@ export default {
       type: Number,
       default: 0,
       required: true
+    },
+    isDisabled: {
+      type: Boolean
     }
   },
   name: 'MyInput',
   computed: {
-    computedHeight: {
+    computedVal: {
       get() {
         return this.val
       },

@@ -38,16 +38,21 @@ export default {
   },
   computed: {
     ...mapState({
-      layers: state => state.layers
+      layers: state => state.layers,
+      isShiftEnabled: state => state.imageParams.shift.isEnabled,
+      figureShift: state => state.imageParams.shift.value
     }),
     reversedLayers() {
       return [...this.layers].reverse()
     },
+    computedFigureShift() {
+      return this.isShiftEnabled ? this.figureShift : 0
+    },
     totalHeight() {
-      return getTotalHeight(this.layers)
+      return getTotalHeight(this.layers, this.computedFigureShift)
     },
     startPoints() {
-      return calculateStartPoints(this.totalHeight, this.reversedLayers)
+      return calculateStartPoints(this.totalHeight, this.reversedLayers, this.computedFigureShift)
     }
   }
 }

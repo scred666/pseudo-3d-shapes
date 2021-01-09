@@ -6,3 +6,5 @@ export const sumElements = arr => {
   }
 }
 export const isValidNumber = number => !isNaN(parseFloat(number)) && number >= 0
+
+export const getRandomId = () => Math.random().toString(36).substr(2, 9)
