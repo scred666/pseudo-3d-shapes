@@ -1,6 +1,5 @@
 <template>
-  <path :d="path"
-        :fill="fill"/>
+  <path :d="path" :fill="fill" />
 </template>
 
 <script>
@@ -18,6 +17,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

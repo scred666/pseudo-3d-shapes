@@ -7,8 +7,8 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-import MyCheckbox from '@/components/MyCheckbox'
-import MyInput from '@/components/MyInput'
+import MyCheckbox from '@/components/controls/MyCheckbox'
+import MyInput from '@/components/controls/MyInput'
 export default {
   name: 'ShiftControls',
   components: { MyInput, MyCheckbox },

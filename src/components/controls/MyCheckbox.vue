@@ -39,7 +39,7 @@ export default {
       + label
         background-color: rgba(#606060, .4)
         &:after
-          background-color: #41b883
+          background-color: $green
           transform: translate(16px, -50%)
   label
     width: 36px

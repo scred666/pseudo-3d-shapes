@@ -13,7 +13,7 @@
 
 <script>
 import { types } from '@/utils/drawing'
-import MyRadio from '@/components/MyRadio'
+import MyRadio from '@/components/controls/MyRadio'
 
 export default {
   name: 'ShapeSwitcher',

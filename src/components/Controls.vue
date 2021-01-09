@@ -36,9 +36,9 @@
 import { mapMutations, mapState } from 'vuex'
 import { clone } from 'ramda'
 import draggable from 'vuedraggable'
-import MyInput from '@/components/MyInput'
-import LayerActionBtn from '@/components/LayerActionBtn'
-import ColorInput from '@/components/ColorInput'
+import MyInput from '@/components/controls/MyInput'
+import LayerActionBtn from '@/components/controls/LayerActionBtn'
+import ColorInput from '@/components/controls/ColorInput'
 import ShapeSwitcher from '@/components/ShapeSwitcher'
 
 export default {

@@ -24,7 +24,7 @@
 <script>
 import { calculateStartPoints, drawLayer, getTotalHeight } from '@/utils/drawing'
 import { mapState } from 'vuex'
-import Layer from '@/components/Layer'
+import Layer from '@/components/figure/Layer'
 
 export default {
   name: 'Figure',

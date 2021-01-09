@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import Shape from '@/components/Shape'
-import Polygons from '@/components/Polygons'
+import Shape from '@/components/figure/Shape'
+import Polygons from '@/components/figure/Polygons'
 
 export default {
   props: {
