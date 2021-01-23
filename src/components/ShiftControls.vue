@@ -1,7 +1,9 @@
 <template>
   <div class="shift-controls">
     <my-checkbox :val="isShiftEnabled" @updateVal="toggleFigureShift" />
-    <my-input :val="figureShift" :is-disabled="!isShiftEnabled" @updateVal="updateFigureShift" />
+    <my-input :val="figureShift" :is-disabled="!isShiftEnabled" @updateVal="updateFigureShift">
+      shift:
+    </my-input>
   </div>
 </template>
 

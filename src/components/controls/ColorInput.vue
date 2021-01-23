@@ -1,5 +1,8 @@
 <template>
-  <input type="color" class="color-input" :value="color" @change="handler" />
+  <div class="color-switcher">
+    <div class="color-switcher__title">select color:</div>
+    <input type="color" class="color-switcher__input" :value="color" @change="handler" />
+  </div>
 </template>
 
 <script>
@@ -30,19 +33,25 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.color-input
-  -webkit-appearance: none
-  border: none
-  width: 24px
-  height: 24px
-  border-radius: 50%
-  padding: 0
-  cursor: pointer
-  &::-webkit-color-swatch-wrapper
+.color-switcher
+  display: flex
+  align-items: center
+  &__title
+    @extend %input-title
+  &__input
+    outline: none
+    -webkit-appearance: none
+    border: none
+    width: 24px
+    height: 24px
+    border-radius: 50%
     padding: 0
-    border-radius: 50%
-    border: none
-  &::-webkit-color-swatch
-    border: none
-    border-radius: 50%
+    cursor: pointer
+    &::-webkit-color-swatch-wrapper
+      padding: 0
+      border-radius: 50%
+      border: none
+    &::-webkit-color-swatch
+      border: none
+      border-radius: 50%
 </style>

@@ -1,13 +1,16 @@
 <template>
   <div class="shape-switcher">
-    <my-radio
-      v-for="type in types"
-      :value="type"
-      :checked="currentShape === type"
-      :id="id"
-      :key="type"
-      @switchTo="selectNewShape"
-    />
+    <div class="shape-switcher__title">select shape:</div>
+    <div class="shape-switcher__controls">
+      <my-radio
+        v-for="type in types"
+        :value="type"
+        :checked="currentShape === type"
+        :id="id"
+        :key="type"
+        @switchTo="selectNewShape"
+      />
+    </div>
   </div>
 </template>
 
@@ -40,4 +43,13 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="sass">
+.shape-switcher
+  display: flex
+  align-items: center
+  &__title
+    @extend %input-title
+  &__controls
+    display: flex
+    align-items: center
+</style>

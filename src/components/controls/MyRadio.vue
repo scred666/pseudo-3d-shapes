@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="item">
     <input
       type="radio"
       :value="value"
@@ -8,13 +8,19 @@
       :name="`shapeSwitcher-${id}`"
       @change="handler"
     />
-    <label :for="`${id}-${value}`">
-      {{ value }}
+    <label :for="`${id}-${value}`" class="item__label">
+      <img :src="images[value]" :alt="value" class="item__label-img" />
     </label>
   </div>
 </template>
 
 <script>
+import { types } from '@/utils/drawing'
+
+const images = {
+  [types.cube]: require('@/assets/img/cube.svg'),
+  [types.pyramid]: require('@/assets/img/pyramid.svg')
+}
 export default {
   name: 'MyRadio',
   props: {
@@ -34,8 +40,40 @@ export default {
     handler() {
       this.$emit('switchTo', this.value)
     }
+  },
+  computed: {
+    images: () => images
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="sass">
+.item
+  line-height: 0
+  border-radius: 4px
+  background-color: $light
+  &:not(:last-child)
+    margin-right: 4px
+  input
+    display: none
+    position: absolute
+    opacity: 0
+    pointer-events: none
+    &:checked
+      + label
+         .item__label-img
+           filter: $filter-green
+  &__label
+    cursor: pointer
+    line-height: 0
+    width: 30px
+    height: 30px
+    display: flex
+    justify-content: center
+    align-items: center
+    &-img
+      width: 100%
+      height: 100%
+      transition: .5s
+      filter: $filter-black
+</style>

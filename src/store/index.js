@@ -13,8 +13,8 @@ export default new Vuex.Store({
       }
     },
     defaultLayer: {
-      fill: '#006f74',
-      height: 120,
+      fill: '#81cdc2',
+      height: 100,
       type: 'cube',
       id: null
     },

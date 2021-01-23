@@ -55,7 +55,7 @@ export default {
     },
     layer: {
       type: Object,
-      default: () => {}
+      default: () => ({})
     }
   },
   components: {

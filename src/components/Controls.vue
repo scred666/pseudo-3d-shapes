@@ -1,5 +1,6 @@
 <template>
   <div class="controls">
+    <button @click="addNewLayer">add</button>
     <draggable
       v-model="layersList"
       group="layers"
@@ -10,27 +11,38 @@
       handle=".handle"
       class="controls__items"
     >
-      <transition-group name="flip-list">
-        <div v-for="(layer, i) in layersList" :key="layer.id" class="controls__items-single">
+      <transition-group name="flip-list" tag="div" class="controls__items-list">
+        <div v-for="(layer, i) in layersList" :key="layer.id" class="item">
           <div class="handle">
             <img src="@/assets/img/drag.svg" alt="::" />
           </div>
-          <my-input :val="layer.height" @updateVal="updateHeight($event, i)" />
-          <div class="nav">
-            <layer-action-btn @layerAction="moveUp(i)"> ↑ </layer-action-btn>
-            <layer-action-btn @layerAction="moveDown(i)"> ↓ </layer-action-btn>
-            <layer-action-btn @layerAction="removeLayer(i)"> x </layer-action-btn>
+          <div class="item__controls">
+            <div class="item__controls-inputs">
+              <my-input :val="layer.height" @updateVal="updateHeight($event, i)">
+                enter height:
+              </my-input>
+              <color-input :color="layer.fill" @updateColor="updateColor($event, i)" />
+              <shape-switcher
+                :currentShape="layer.type"
+                :id="layer.id"
+                @selectNewShape="updateType($event, i)"
+              />
+            </div>
+            <div class="item__controls-nav">
+              <layer-action-btn @layerAction="moveUp(i)">
+                <img src="@/assets/img/up.svg" alt="↑" />
+              </layer-action-btn>
+              <layer-action-btn @layerAction="moveDown(i)">
+                <img src="@/assets/img/down.svg" alt="↓" />
+              </layer-action-btn>
+              <layer-action-btn @layerAction="removeLayer(i)">
+                <img src="@/assets/img/remove.svg" alt="x" />
+              </layer-action-btn>
+            </div>
           </div>
-          <color-input :color="layer.fill" @updateColor="updateColor($event, i)" />
-          <shape-switcher
-            :currentShape="layer.type"
-            :id="layer.id"
-            @selectNewShape="updateType($event, i)"
-          />
         </div>
       </transition-group>
     </draggable>
-    <button @click="addNewLayer">add</button>
   </div>
 </template>
 
@@ -123,14 +135,42 @@ export default {
 </script>
 
 <style scoped lang="sass">
-div
-  color: $white
-.handle
-  background: $white
-  line-height: 0
-  cursor: pointer
-  max-width: 20px
-  img
-    width: 100%
-    height: auto
+.controls
+  &__items
+    &-list
+      display: grid
+      grid-row-gap: 20px
+      .item
+        width: 400px
+        background-color: #323a47
+        border-radius: 4px
+        display: grid
+        grid-template-columns: 40px 1fr
+        padding: 12px 0
+        gap: 20px
+        .handle
+          line-height: 0
+          cursor: move
+          width: 40px
+          display: flex
+          align-items: center
+          img
+            width: 50%
+            height: auto
+            margin: 0 auto
+        &__controls
+          display: flex
+          align-items: center
+          justify-content: space-between
+          &-inputs
+            display: grid
+            grid-auto-columns: 1fr
+            gap: 12px
+            min-width: 240px
+          &-nav
+            box-shadow: inset 1px 0 0 $green
+            padding: 0 20px
+            display: grid
+            grid-auto-columns: 1fr
+            grid-row-gap: 4px
 </style>
