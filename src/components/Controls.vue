@@ -1,6 +1,6 @@
 <template>
   <div class="controls">
-    <my-button @btnClick="addNewLayer"> Prepend new layer </my-button>
+    <my-button @btnClick="addNewLayer"> {{ prependBtnText }} new layer </my-button>
     <draggable
       v-model="layersList"
       group="layers"
@@ -10,6 +10,7 @@
       tag="div"
       handle=".handle"
       class="controls__items"
+      v-if="isLayersExist"
     >
       <transition-group name="flip-list" tag="div" class="controls__items-list">
         <div v-for="(layer, i) in layersList" :key="layer.id" class="item">
@@ -43,7 +44,7 @@
         </div>
       </transition-group>
     </draggable>
-    <my-button @btnClick="addNewLayer(true)"> Append new layer </my-button>
+    <my-button @btnClick="addNewLayer(true)" v-if="isLayersExist"> Append new layer </my-button>
   </div>
 </template>
 
@@ -58,6 +59,12 @@ import ShapeSwitcher from '@/components/ShapeSwitcher'
 import MyButton from '@/components/controls/MyButton'
 
 export default {
+  props: {
+    isLayersExist: {
+      type: Boolean,
+      required: true
+    }
+  },
   name: 'Controls',
   data() {
     return {
@@ -132,6 +139,9 @@ export default {
       set(value) {
         this.UPDATE_LAYERS_ORDER(value)
       }
+    },
+    prependBtnText() {
+      return this.isLayersExist ? 'Prepend' : 'Add'
     }
   }
 }

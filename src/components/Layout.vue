@@ -1,12 +1,12 @@
 <template>
   <section class="layout">
     <div class="layout__layers">
-      <Controls />
+      <Controls :is-layers-exist="isLayersExist" />
     </div>
-    <div class="layout__figure">
+    <div class="layout__figure" v-if="isLayersExist">
       <Figure />
     </div>
-    <div class="layout__shift">
+    <div class="layout__shift" v-if="isLayersExist">
       <ShiftControls />
     </div>
   </section>
@@ -16,12 +16,21 @@
 import Figure from '@/components/Figure'
 import Controls from '@/components/Controls'
 import ShiftControls from '@/components/ShiftControls'
+import { mapState } from 'vuex'
 export default {
   name: 'Layout',
   components: {
     ShiftControls,
     Figure,
     Controls
+  },
+  computed: {
+    ...mapState({
+      layers: state => state.layers
+    }),
+    isLayersExist() {
+      return !!this.layers.length
+    }
   }
 }
 </script>
@@ -32,7 +41,6 @@ export default {
   max-width: 1200px
   width: 90vw
   margin: 0 auto
-  min-height: 100vh
   +media((display: (320: grid, 1024: flex)))
   +media((justify-content: (1024: space-between)))
   $t-s: 11fr 9fr

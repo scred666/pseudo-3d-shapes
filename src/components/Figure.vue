@@ -63,4 +63,5 @@ export default {
 .figure
   max-width: 100%
   height: auto
+  transition: .3s
 </style>

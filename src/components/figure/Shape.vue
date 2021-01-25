@@ -1,5 +1,5 @@
 <template>
-  <path :d="path" :fill="fill" />
+  <path :d="path" :fill="fill" class="shape" />
 </template>
 
 <script>
@@ -17,4 +17,7 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="sass">
+.shape
+  transition: .3s
+</style>
