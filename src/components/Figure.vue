@@ -4,6 +4,7 @@
     :height="totalHeight"
     xmlns="http://www.w3.org/2000/svg"
     :viewBox="`0 0 336 ${totalHeight}`"
+    class="figure"
   >
     <Layer
       v-for="(layer, i) in reversedLayers"
@@ -58,4 +59,8 @@ export default {
 }
 </script>
 
-<style scoped lang="sass"></style>
+<style scoped lang="sass">
+.figure
+  max-width: 100%
+  height: auto
+</style>

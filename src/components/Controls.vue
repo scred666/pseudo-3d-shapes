@@ -1,6 +1,6 @@
 <template>
   <div class="controls">
-    <button @click="addNewLayer">add</button>
+    <my-button @btnClick="addNewLayer"> Prepend new layer </my-button>
     <draggable
       v-model="layersList"
       group="layers"
@@ -43,6 +43,7 @@
         </div>
       </transition-group>
     </draggable>
+    <my-button @btnClick="addNewLayer(true)"> Append new layer </my-button>
   </div>
 </template>
 
@@ -54,6 +55,7 @@ import MyInput from '@/components/controls/MyInput'
 import LayerActionBtn from '@/components/controls/LayerActionBtn'
 import ColorInput from '@/components/controls/ColorInput'
 import ShapeSwitcher from '@/components/ShapeSwitcher'
+import MyButton from '@/components/controls/MyButton'
 
 export default {
   name: 'Controls',
@@ -63,6 +65,7 @@ export default {
     }
   },
   components: {
+    MyButton,
     ShapeSwitcher,
     ColorInput,
     LayerActionBtn,
@@ -90,8 +93,8 @@ export default {
         val
       })
     },
-    addNewLayer() {
-      this.ADD_NEW_LAYER()
+    addNewLayer(isAppend) {
+      this.ADD_NEW_LAYER(isAppend)
     },
     removeLayer(index) {
       this.REMOVE_LAYER(index)
@@ -136,22 +139,25 @@ export default {
 
 <style scoped lang="sass">
 .controls
+  display: grid
+  +media((gap: (320: 12px, 768: 20px)))
+  +media((width: (320: 100%, 768: 300px, 1024: 400px)))
   &__items
     &-list
       display: grid
-      grid-row-gap: 20px
+      +media((gap: (320: 12px, 768: 20px)))
       .item
-        width: 400px
+        width: 100%
         background-color: #323a47
         border-radius: 4px
         display: grid
-        grid-template-columns: 40px 1fr
-        padding: 12px 0
-        gap: 20px
+        +media((grid-template-columns: (320: 15px 1fr, 768: 30px 1fr, 1024: 40px 1fr)))
+        +media((padding: (320: 6px 0, 768: 12px 0)))
+        +media((gap: (320: 6px, 768: 10px, 1024: 20px)))
         .handle
           line-height: 0
           cursor: move
-          width: 40px
+          +media((width: (320: 15px, 768: 30px, 1024: 40px)))
           display: flex
           align-items: center
           img
@@ -165,11 +171,11 @@ export default {
           &-inputs
             display: grid
             grid-auto-columns: 1fr
-            gap: 12px
-            min-width: 240px
+            +media((gap: (320: 6px, 768: 12px)))
+            +media((min-width: (1024: 240px)))
           &-nav
-            box-shadow: inset 1px 0 0 $green
-            padding: 0 20px
+            +media((box-shadow: (768: inset 1px 0 0 $green)))
+            +media((padding: (320: 0 6px, 768: 0 10px, 1024: 0 20px)))
             display: grid
             grid-auto-columns: 1fr
             grid-row-gap: 4px

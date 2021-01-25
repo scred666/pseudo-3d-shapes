@@ -55,7 +55,7 @@ export default {
     font-size: 16px
     font-weight: bold
     border-radius: 2px
-    width: 68px
+    +media((width: (320: 40px, 768: 68px)))
     text-align: center
     text-overflow: ellipsis
     padding: 4px

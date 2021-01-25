@@ -1,8 +1,8 @@
 <template>
   <div class="shift-controls">
-    <my-checkbox :val="isShiftEnabled" @updateVal="toggleFigureShift" />
-    <my-input :val="figureShift" :is-disabled="!isShiftEnabled" @updateVal="updateFigureShift">
-      shift:
+    <my-checkbox :val="isShiftEnabled" label="shift:" @updateVal="toggleFigureShift" />
+    <my-input :val="figureShift" @updateVal="updateFigureShift" v-if="isShiftEnabled">
+      size:
     </my-input>
   </div>
 </template>
@@ -35,4 +35,9 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="sass">
+.shift-controls
+  display: grid
+  +media((gap: (320: 6px, 768: 12px)))
+  justify-content: flex-start
+</style>

@@ -73,10 +73,10 @@ export default new Vuex.Store({
     UPDATE_LAYER_PARAM: (state, { index, param, val }) => {
       state.layers[index][param] = val
     },
-    ADD_NEW_LAYER: state => {
+    ADD_NEW_LAYER: (state, isAppend) => {
       const newLayer = { ...state.defaultLayer }
       newLayer.id = getRandomId()
-      state.layers.unshift(newLayer)
+      isAppend ? state.layers.push(newLayer) : state.layers.unshift(newLayer)
     },
     REMOVE_LAYER: (state, payload) => {
       state.layers.splice(payload, 1)

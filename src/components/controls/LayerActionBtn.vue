@@ -25,8 +25,8 @@ export default {
   cursor: pointer
   line-height: 0
   border-radius: 4px
-  width: 30px
-  height: 30px
+  +media((width: (320: 25px, 768: 30px)))
+  +media((height: (320: 25px, 768: 30px)))
   display: flex
   justify-content: center
   align-items: center
