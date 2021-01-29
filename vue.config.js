@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'development' ? '/' : '/3d-shapes/figures',
+  publicPath: process.env.NODE_ENV === 'development' ? '/' : '/demos/3d-shapes',
   css: {
     loaderOptions: {
       sass: {

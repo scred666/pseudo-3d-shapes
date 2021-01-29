@@ -46,7 +46,7 @@ export default {
   &__box
     display: flex
     align-items: center
-    min-height: 20px
+    min-height: rem(20)
     &-input
       display: none
       pointer-events: none
@@ -59,19 +59,19 @@ export default {
           background-color: rgba(#606060, .4)
           &:after
             background-color: $green
-            transform: translate(16px, -50%)
+            transform: translate(rem(16), -50%)
   &__box
     &-toggler
-      width: 36px
-      height: 14px
+      width: rem(36)
+      height: rem(14)
       display: inline-flex
       background-color: rgba(#606060, .5)
-      border-radius: 8px
+      border-radius: rem(8)
       position: relative
       cursor: pointer
       &:after
-        height: 20px
-        width: 20px
+        height: rem(20)
+        width: rem(20)
         border-radius: 50%
         background-color: #909090
         content: ""
@@ -79,6 +79,6 @@ export default {
         left: 0
         top: 50%
         transform: translate(0, -50%)
-        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.6)
+        box-shadow: 0 rem(1) rem(5) 0 rgba(0, 0, 0, 0.6)
         transition: transform linear .08s, background-color linear .08s
 </style>

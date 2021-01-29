@@ -24,9 +24,9 @@ export default {
   background: $light
   cursor: pointer
   line-height: 0
-  border-radius: 4px
-  +media((width: (320: 25px, 768: 30px)))
-  +media((height: (320: 25px, 768: 30px)))
+  border-radius: rem(4)
+  +media((width: (320: 25px, 768: rem(30))))
+  +media((height: (320: 25px, 768: rem(30))))
   display: flex
   justify-content: center
   align-items: center

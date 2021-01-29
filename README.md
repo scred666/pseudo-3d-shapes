@@ -1,4 +1,6 @@
-# pseudo-3d-shapes
+# Drag'n'drop pseudo 3D shapes
+
+[Live demo](https://scred666.github.io/demos/3d-shapes/)
 
 ## Project setup
 ```
@@ -14,11 +16,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

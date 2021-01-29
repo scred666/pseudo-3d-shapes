@@ -38,6 +38,6 @@ export default {
 <style scoped lang="sass">
 .shift-controls
   display: grid
-  +media((gap: (320: 6px, 768: 12px)))
+  +media((gap: (320: rem(6), 768: rem(12))))
   justify-content: flex-start
 </style>

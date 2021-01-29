@@ -42,8 +42,8 @@ export default {
     outline: none
     -webkit-appearance: none
     border: none
-    width: 24px
-    height: 24px
+    width: rem(24)
+    height: rem(24)
     border-radius: 50%
     padding: 0
     cursor: pointer

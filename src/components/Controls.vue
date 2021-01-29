@@ -150,24 +150,24 @@ export default {
 <style scoped lang="sass">
 .controls
   display: grid
-  +media((gap: (320: 12px, 768: 20px)))
-  +media((width: (320: 100%, 768: 300px, 1024: 400px)))
+  +media((gap: (320: rem(12), 768: rem(20))))
+  +media((width: (320: 100%, 768: rem(300), 1024: rem(400))))
   &__items
     &-list
       display: grid
-      +media((gap: (320: 12px, 768: 20px)))
+      +media((gap: (320: rem(12), 768: rem(20))))
       .item
         width: 100%
         background-color: #323a47
-        border-radius: 4px
+        border-radius: rem(4)
         display: grid
-        +media((grid-template-columns: (320: 15px 1fr, 768: 30px 1fr, 1024: 40px 1fr)))
-        +media((padding: (320: 6px 0, 768: 12px 0)))
-        +media((gap: (320: 6px, 768: 10px, 1024: 20px)))
+        +media((grid-template-columns: (320: rem(15) 1fr, 768: rem(30) 1fr, 1024: rem(40) 1fr)))
+        +media((padding: (320: rem(3) 0, 768: rem(12) 0)))
+        +media((gap: (320: rem(6), 768: rem(10), 1024: rem(20))))
         .handle
           line-height: 0
           cursor: move
-          +media((width: (320: 15px, 768: 30px, 1024: 40px)))
+          +media((width: (320: rem(15), 768: rem(30), 1024: rem(40))))
           display: flex
           align-items: center
           img
@@ -181,12 +181,12 @@ export default {
           &-inputs
             display: grid
             grid-auto-columns: 1fr
-            +media((gap: (320: 6px, 768: 12px)))
+            +media((gap: (320: rem(6), 768: rem(12))))
             +media((min-width: (1024: 240px)))
           &-nav
-            +media((box-shadow: (768: inset 1px 0 0 $green)))
-            +media((padding: (320: 0 6px, 768: 0 10px, 1024: 0 20px)))
+            +media((box-shadow: (768: inset rem(1) 0 0 $green)))
+            +media((padding: (320: 0 rem(6), 768: 0 rem(10), 1024: 0 rem(20))))
             display: grid
             grid-auto-columns: 1fr
-            grid-row-gap: 4px
+            grid-row-gap: rem(4)
 </style>

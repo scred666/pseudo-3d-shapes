@@ -50,10 +50,10 @@ export default {
 <style scoped lang="sass">
 .item
   line-height: 0
-  border-radius: 4px
+  border-radius: rem(4)
   background-color: $light
   &:not(:last-child)
-    margin-right: 4px
+    margin-right: rem(4)
   input
     display: none
     position: absolute
@@ -66,8 +66,8 @@ export default {
   &__label
     cursor: pointer
     line-height: 0
-    width: 30px
-    height: 30px
+    width: rem(30)
+    height: rem(30)
     display: flex
     justify-content: center
     align-items: center

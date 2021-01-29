@@ -51,7 +51,8 @@ export default {
     },
     fill: {
       type: String,
-      default: '#F4E23F'
+      default: null,
+      required: true
     },
     layer: {
       type: Object,

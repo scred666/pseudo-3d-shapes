@@ -18,15 +18,15 @@ export default {
 <style scoped lang="sass">
 .simple-btn
   background: $light
-  border-radius: 4px
+  border-radius: rem(4)
   width: 100%
   color: $green
   box-shadow: none
   border: none
   outline: none
   cursor: pointer
-  +media((font-size: (320: 14px, 768: 16px)))
-  min-height: 40px
+  +media((font-size: (320: rem(14), 768: rem(16))))
+  min-height: rem(40)
   font-family: $main-font
   font-weight: bold
   transition: .5s

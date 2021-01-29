@@ -52,10 +52,10 @@ export default {
     color: $green
     background-color: $light
     border: none
-    font-size: 16px
+    font-size: rem(16)
     font-weight: bold
-    border-radius: 2px
-    +media((width: (320: 40px, 768: 68px)))
+    border-radius: rem(2)
+    +media((width: (320: rem(40), 768: rem(68))))
     text-align: center
     text-overflow: ellipsis
     padding: 4px
