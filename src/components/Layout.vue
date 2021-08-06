@@ -1,13 +1,27 @@
 <template>
   <section class="layout">
     <div class="layout__layers">
-      <Controls :is-layers-exist="isLayersExist" />
+      <Controls
+        :is-layers-exist="isLayersExist"
+        :layers="layers"
+        @updateLayersOrder="updateLayersOrder"
+        @addNewLayer="addNewLayer"
+        @updateParam="updateParam"
+        @removeLayer="removeLayer"
+        @moveUp="moveUp"
+        @moveDown="moveDown"
+      />
     </div>
     <div class="layout__figure" v-if="isLayersExist">
-      <Figure />
+      <Figure :layers="layers" :layers-offset="layersOffset" :is-offset-enabled="isOffsetEnabled" />
     </div>
     <div class="layout__shift" v-if="isLayersExist">
-      <ShiftControls />
+      <ShiftControls
+        :layers-offset="layersOffset"
+        :is-offset-enabled="isOffsetEnabled"
+        @toggleLayersOffset="toggleLayersOffset"
+        @updateLayersOffset="updateLayersOffset"
+      />
     </div>
   </section>
 </template>
@@ -16,18 +30,78 @@
 import Figure from '@/components/Figure'
 import Controls from '@/components/Controls'
 import ShiftControls from '@/components/ShiftControls'
-import { mapState } from 'vuex'
+import { clone } from 'ramda'
+import { defaultLayer, initialLayers } from '@/utils/drawing'
+import { getRandomId } from '@/utils'
+
+const directions = {
+  down: 'down',
+  up: 'up'
+}
 export default {
   name: 'Layout',
+  data: () => ({
+    layers: clone(initialLayers),
+    layersOffset: 6,
+    isOffsetEnabled: true
+  }),
   components: {
     ShiftControls,
     Figure,
     Controls
   },
+  methods: {
+    updateLayersOrder(layers) {
+      this.layers = layers
+    },
+    addNewLayer(isAppend = false) {
+      const newLayer = {
+        ...defaultLayer,
+        id: getRandomId()
+      }
+      isAppend ? this.layers.push(newLayer) : this.layers.unshift(newLayer)
+    },
+    updateParam(obj) {
+      const { val, id, param } = obj
+      this.layers.find(layer => layer.id === id)[param] = val
+    },
+    removeLayer(layerId) {
+      this.layers = this.layers.filter(layer => layer.id !== layerId)
+    },
+    moveDown(layerId) {
+      const layers = clone(this.layers)
+      const index = this.findLayerIndexById(layerId)
+      const isLastLayer = index !== layers.length - 1
+      isLastLayer
+        ? this.swapLayers(directions.down, layers, index)
+        : layers.unshift(...layers.splice(index, 1))
+      this.updateLayersOrder(layers)
+    },
+    moveUp(layerId) {
+      const layers = clone(this.layers)
+      const index = this.findLayerIndexById(layerId)
+      const isFirstLayer = index === 0
+      isFirstLayer
+        ? layers.push(...layers.splice(index, 1))
+        : this.swapLayers(directions.up, layers, index)
+      this.updateLayersOrder(layers)
+    },
+    findLayerIndexById(layerId) {
+      return this.layers.findIndex(layer => layer.id === layerId)
+    },
+    swapLayers(direction, layers, index) {
+      const indexToSwap = direction === directions.down ? index + 1 : index - 1
+      return ([layers[index], layers[indexToSwap]] = [layers[indexToSwap], layers[index]])
+    },
+    toggleLayersOffset(val) {
+      console.log(val)
+      this.isOffsetEnabled = val
+    },
+    updateLayersOffset(val) {
+      this.layersOffset = val
+    }
+  },
   computed: {
-    ...mapState({
-      layers: state => state.layers
-    }),
     isLayersExist() {
       return !!this.layers.length
     }

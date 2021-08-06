@@ -1,6 +1,6 @@
 <template>
   <div class="shape-switcher">
-    <div class="shape-switcher__title">select shape:</div>
+    <div class="shape-switcher__title">shape:</div>
     <div class="shape-switcher__controls">
       <my-radio
         v-for="type in types"

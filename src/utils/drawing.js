@@ -6,10 +6,13 @@ const x1 = 0
 const x2 = triangleWidth
 const x3 = rhombusWidth
 
-export const getTotalHeight = (layers, figureShift) =>
-  layers.reduce((acc, val) => acc + val.height, 0) +
-  rhombusHeight +
-  (layers.length - 1) * figureShift
+export const getTotalHeight = (layers, figureShift) => {
+  return (
+    layers.reduce((acc, val) => acc + val.height, 0) +
+    rhombusHeight +
+    (layers.length - 1) * figureShift
+  )
+}
 
 export const calculateStartPoints = (totalHeight, layers, figureShift) => {
   let startPoint = totalHeight - rhombusHeight + figureShift
@@ -196,4 +199,50 @@ export const types = {
 const getLayer = {
   [types.cube]: (layer, startPoint) => drawHexagon(layer, startPoint),
   [types.pyramid]: (layer, startPoint) => drawPyramid(layer, startPoint)
+}
+
+export const initialLayers = [
+  {
+    id: 'wn2pf9ruh',
+    fill: '#006f74',
+    height: 160,
+    type: 'pyramid'
+  },
+  {
+    id: '5e5kvp9zq',
+    fill: '#81cdc2',
+    height: 100,
+    type: 'cube'
+  },
+  {
+    id: 'mafj776kg',
+    fill: '#ffd79c',
+    height: 50,
+    type: 'cube'
+  },
+  {
+    id: '9luxy76ua',
+    fill: '#f38c76',
+    height: 70,
+    type: 'cube'
+  },
+  {
+    id: 'egi0z6zdg',
+    fill: '#f24e4a',
+    height: 10,
+    type: 'cube'
+  },
+  {
+    id: 'kgl48aakt',
+    fill: '#182e46',
+    height: 40,
+    type: 'cube'
+  }
+]
+
+export const defaultLayer = {
+  fill: '#81cdc2',
+  height: 100,
+  type: 'cube',
+  id: null
 }

@@ -1,22 +1,23 @@
 <template>
-  <button class="simple-btn" @click="handler">
-    <slot></slot>
+  <button class="app-button" @click="handle">
+    <slot />
   </button>
 </template>
 
 <script>
 export default {
-  name: 'MyButton',
+  name: 'AppButton',
   methods: {
-    handler() {
-      this.$emit('btnClick')
+    handle() {
+      this.$emit('click')
     }
   }
 }
 </script>
 
 <style scoped lang="sass">
-.simple-btn
+.app-button
+
   background: $semi-white
   border-radius: rem(16)
   width: 100%

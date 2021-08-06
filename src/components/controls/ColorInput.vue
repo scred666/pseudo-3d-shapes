@@ -1,6 +1,6 @@
 <template>
   <div class="color-switcher">
-    <div class="color-switcher__title">select color:</div>
+    <div class="color-switcher__title">color:</div>
     <input type="color" class="color-switcher__input" :value="color" @change="handler" />
   </div>
 </template>

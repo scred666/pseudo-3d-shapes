@@ -24,10 +24,23 @@
 
 <script>
 import { calculateStartPoints, drawLayer, getTotalHeight } from '@/utils/drawing'
-import { mapState } from 'vuex'
 import Layer from '@/components/figure/Layer'
 
 export default {
+  props: {
+    layers: {
+      type: Array,
+      required: true
+    },
+    layersOffset: {
+      type: Number,
+      required: true
+    },
+    isOffsetEnabled: {
+      type: Boolean,
+      required: true
+    }
+  },
   name: 'Figure',
   components: {
     Layer
@@ -38,16 +51,11 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      layers: state => state.layers,
-      isShiftEnabled: state => state.imageParams.shift.isEnabled,
-      figureShift: state => state.imageParams.shift.value
-    }),
     reversedLayers() {
       return [...this.layers].reverse()
     },
     computedFigureShift() {
-      return this.isShiftEnabled ? this.figureShift : 0
+      return this.isOffsetEnabled ? this.layersOffset : 0
     },
     totalHeight() {
       return getTotalHeight(this.layers, this.computedFigureShift)

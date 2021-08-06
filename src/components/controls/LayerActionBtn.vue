@@ -1,6 +1,6 @@
 <template>
   <button @click="handler" class="btn">
-    <slot></slot>
+    <slot />
   </button>
 </template>
 
@@ -21,12 +21,13 @@ export default {
   margin: 0
   border: none
   outline: none
-  background: $light
+  background: $semi-white
+  box-shadow: rem(8) rem(8) rem(18) $grey, rem(-8) rem(-8) rem(18) $white
   cursor: pointer
   line-height: 0
   border-radius: rem(4)
-  +media((width: (320: 25px, 768: rem(30))))
-  +media((height: (320: 25px, 768: rem(30))))
+  +media((width: (320: rem(25), 768: rem(30))))
+  +media((height: (320: rem(25), 768: rem(30))))
   display: flex
   justify-content: center
   align-items: center

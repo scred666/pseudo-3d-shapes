@@ -1,6 +1,6 @@
 <template>
   <div class="controls">
-    <my-button @btnClick="addNewLayer"> {{ prependBtnText }} new layer </my-button>
+    <app-button @click="addNewLayer"> {{ prependBtnText }} new layer </app-button>
     <draggable
       v-model="layersList"
       group="layers"
@@ -13,131 +13,70 @@
       v-if="isLayersExist"
     >
       <transition-group name="flip-list" tag="div" class="controls__items-list">
-        <div v-for="(layer, i) in layersList" :key="layer.id" class="item">
-          <div class="handle">
-            <img src="@/assets/img/drag.svg" alt="::" />
-          </div>
-          <div class="item__controls">
-            <div class="item__controls-inputs">
-              <my-input :val="layer.height" @updateVal="updateHeight($event, i)">
-                enter height:
-              </my-input>
-              <color-input :color="layer.fill" @updateColor="updateColor($event, i)" />
-              <shape-switcher
-                :currentShape="layer.type"
-                :id="layer.id"
-                @selectNewShape="updateType($event, i)"
-              />
-            </div>
-            <div class="item__controls-nav">
-              <layer-action-btn @layerAction="moveUp(i)">
-                <img src="@/assets/img/up.svg" alt="↑" />
-              </layer-action-btn>
-              <layer-action-btn @layerAction="moveDown(i)">
-                <img src="@/assets/img/down.svg" alt="↓" />
-              </layer-action-btn>
-              <layer-action-btn @layerAction="removeLayer(i)">
-                <img src="@/assets/img/remove.svg" alt="x" />
-              </layer-action-btn>
-            </div>
-          </div>
-        </div>
+        <controls-layer
+          v-for="layer in layersList"
+          :layer="layer"
+          :key="layer.id"
+          @updateParam="updateParam"
+          @removeLayer="removeLayer"
+          @moveUp="moveUp"
+          @moveDown="moveDown"
+        />
       </transition-group>
     </draggable>
-    <my-button @btnClick="addNewLayer(true)" v-if="isLayersExist"> Append new layer </my-button>
+    <app-button @click="addNewLayer(true)" v-if="isLayersExist"> Append new layer </app-button>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
-import { clone } from 'ramda'
 import draggable from 'vuedraggable'
-import MyInput from '@/components/controls/MyInput'
-import LayerActionBtn from '@/components/controls/LayerActionBtn'
-import ColorInput from '@/components/controls/ColorInput'
-import ShapeSwitcher from '@/components/ShapeSwitcher'
-import MyButton from '@/components/controls/MyButton'
+import AppButton from '@/components/dump/AppButton'
+import ControlsLayer from '@/components/controls/ControlsLayer'
 
 export default {
   props: {
     isLayersExist: {
       type: Boolean,
       required: true
+    },
+    layers: {
+      type: Array,
+      required: true
     }
   },
   name: 'Controls',
-  data() {
-    return {
-      drag: false
-    }
-  },
+  data: () => ({
+    drag: false
+  }),
   components: {
-    MyButton,
-    ShapeSwitcher,
-    ColorInput,
-    LayerActionBtn,
-    draggable,
-    MyInput
+    ControlsLayer,
+    AppButton,
+    draggable
   },
   methods: {
-    ...mapMutations({
-      UPDATE_LAYERS_ORDER: 'UPDATE_LAYERS_ORDER',
-      ADD_NEW_LAYER: 'ADD_NEW_LAYER',
-      REMOVE_LAYER: 'REMOVE_LAYER',
-      UPDATE_LAYER_PARAM: 'UPDATE_LAYER_PARAM'
-    }),
-    updateHeight(val, index) {
-      this.UPDATE_LAYER_PARAM({
-        index,
-        param: 'height',
-        val
-      })
+    updateParam(obj) {
+      this.$emit('updateParam', obj)
     },
-    updateType(val, index) {
-      this.UPDATE_LAYER_PARAM({
-        index,
-        param: 'type',
-        val
-      })
+    addNewLayer(isAppend = false) {
+      this.$emit('addNewLayer', isAppend)
     },
-    addNewLayer(isAppend) {
-      this.ADD_NEW_LAYER(isAppend)
+    removeLayer(layerId) {
+      this.$emit('removeLayer', layerId)
     },
-    removeLayer(index) {
-      this.REMOVE_LAYER(index)
+    moveDown(layerId) {
+      this.$emit('moveDown', layerId)
     },
-    moveDown(index) {
-      const arr = clone(this.layersList)
-      index !== arr.length - 1
-        ? ([arr[index], arr[index + 1]] = [arr[index + 1], arr[index]])
-        : arr.unshift(...arr.splice(index, 1))
-      this.UPDATE_LAYERS_ORDER(arr)
-    },
-    moveUp(index) {
-      const arr = clone(this.layersList)
-      index !== 0
-        ? ([arr[index], arr[index - 1]] = [arr[index - 1], arr[index]])
-        : arr.push(...arr.splice(index, 1))
-      this.UPDATE_LAYERS_ORDER(arr)
-    },
-    updateColor(val, index) {
-      this.UPDATE_LAYER_PARAM({
-        index,
-        param: 'fill',
-        val
-      })
+    moveUp(layerId) {
+      this.$emit('moveUp', layerId)
     }
   },
   computed: {
-    ...mapState({
-      layers: state => state.layers
-    }),
     layersList: {
       get() {
         return this.layers
       },
-      set(value) {
-        this.UPDATE_LAYERS_ORDER(value)
+      set(val) {
+        this.$emit('updateLayersOrder', val)
       }
     },
     prependBtnText() {
@@ -156,37 +95,40 @@ export default {
     &-list
       display: grid
       +media((gap: (320: rem(12), 768: rem(20))))
-      .item
-        width: 100%
-        background-color: #323a47
-        border-radius: rem(4)
-        display: grid
-        +media((grid-template-columns: (320: rem(15) 1fr, 768: rem(30) 1fr, 1024: rem(40) 1fr)))
-        +media((padding: (320: rem(3) 0, 768: rem(12) 0)))
-        +media((gap: (320: rem(6), 768: rem(10), 1024: rem(20))))
-        .handle
-          line-height: 0
-          cursor: move
-          +media((width: (320: rem(15), 768: rem(30), 1024: rem(40))))
-          display: flex
-          align-items: center
-          img
-            width: 50%
-            height: auto
-            margin: 0 auto
-        &__controls
-          display: flex
-          align-items: center
-          justify-content: space-between
-          &-inputs
-            display: grid
-            grid-auto-columns: 1fr
-            +media((gap: (320: rem(6), 768: rem(12))))
-            +media((min-width: (1024: 240px)))
-          &-nav
-            +media((box-shadow: (768: inset rem(1) 0 0 $green)))
-            +media((padding: (320: 0 rem(6), 768: 0 rem(10), 1024: 0 rem(20))))
-            display: grid
-            grid-auto-columns: 1fr
-            grid-row-gap: rem(4)
+      &::v-deep
+        .item
+          z-index: 1
+          width: 100%
+          background-color: $semi-white
+          border-radius: rem(16)
+          box-shadow: rem(8) rem(8) rem(18) $grey, rem(-8) rem(-8) rem(18) $white
+          display: grid
+          +media((grid-template-columns: (320: rem(15) 1fr, 768: rem(30) 1fr, 1024: rem(40) 1fr)))
+          +media((padding: (320: rem(3) 0, 768: rem(12) 0)))
+          +media((gap: (320: rem(6), 768: rem(10), 1024: rem(20))))
+          .handle
+            line-height: 0
+            cursor: move
+            +media((width: (320: rem(15), 768: rem(30), 1024: rem(40))))
+            display: flex
+            align-items: center
+            img
+              width: 50%
+              height: auto
+              margin: 0 auto
+          &__controls
+            display: flex
+            align-items: center
+            justify-content: space-between
+            &-inputs
+              display: grid
+              grid-auto-columns: 1fr
+              +media((gap: (320: rem(6), 768: rem(12))))
+              +media((min-width: (1024: 240px)))
+            &-nav
+              // +media((box-shadow: (768: inset rem(1) 0 0 $green)))
+              +media((padding: (320: 0 rem(6), 768: 0 rem(10), 1024: 0 rem(20))))
+              display: grid
+              grid-auto-columns: 1fr
+              grid-row-gap: rem(4)
 </style>

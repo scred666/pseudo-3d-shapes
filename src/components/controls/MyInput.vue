@@ -1,7 +1,7 @@
 <template>
   <div class="input-wrapper">
     <div class="input-wrapper__title">
-      <slot></slot>
+      <slot />
     </div>
     <input
       type="number"
@@ -20,7 +20,6 @@ export default {
   props: {
     val: {
       type: Number,
-      default: 0,
       required: true
     },
     isDisabled: {
@@ -50,11 +49,12 @@ export default {
   &__input, &__plug
     font-family: $main-font
     color: $green
-    background-color: $light
+    background-color: $semi-white
+    border-radius: rem(8)
     border: none
     font-size: rem(16)
     font-weight: bold
-    border-radius: rem(2)
+    box-shadow: inset rem(8) rem(8) rem(10) 0 rgba($grey, .5), inset rem(-8) rem(-8) rem(18) 0 rgba($white, .5)
     +media((width: (320: rem(40), 768: rem(68))))
     text-align: center
     text-overflow: ellipsis
