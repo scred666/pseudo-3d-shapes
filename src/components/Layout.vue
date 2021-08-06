@@ -15,7 +15,7 @@
     <div class="layout__figure" v-if="isLayersExist">
       <Figure :layers="layers" :layers-offset="layersOffset" :is-offset-enabled="isOffsetEnabled" />
     </div>
-    <div class="layout__shift" v-if="isLayersExist">
+    <div class="layout__offset" v-if="isLayersExist">
       <ShiftControls
         :layers-offset="layersOffset"
         :is-offset-enabled="isOffsetEnabled"
@@ -94,7 +94,6 @@ export default {
       return ([layers[index], layers[indexToSwap]] = [layers[indexToSwap], layers[index]])
     },
     toggleLayersOffset(val) {
-      console.log(val)
       this.isOffsetEnabled = val
     },
     updateLayersOffset(val) {
@@ -123,15 +122,21 @@ export default {
   +media((grid-template-columns: (320: $t-s, 480: $t-m, 768: $t-l, 1024: unset)))
   +media((gap: (320: rem(12) 5vw, 1024: unset)))
   align-items: flex-start
-  &__layers, &__shift
-    +media((position: (1024: sticky)))
-    +media((top: (1024: rem(40))))
-  &__shift
+  &__layers, &__offset, &__figure
+    position: sticky
+    top: rem(20)
+  &__offset
     min-width: rem(125)
     +media((grid-area: (320: '1 / 1 / 2 / 2', 1024: unset)))
+    +media((padding: (1024: rem(40))))
+    background: $semi-white
+    border-radius: rem(16)
+    box-shadow: rem(8) rem(8) rem(18) $grey, rem(-8) rem(-8) rem(18) $white
   &__layers
     +media((grid-column-start: (320: 1, 1024: unset)))
   &__figure
-    +media((position: (320: sticky, 1024: relative)))
-    +media((top: (320: rem(20), 1024: unset)))
+    +media((padding: (1024: rem(40))))
+    background: $semi-white
+    border-radius: rem(36)
+    box-shadow: rem(8) rem(8) rem(18) $grey, rem(-8) rem(-8) rem(18) $white
 </style>

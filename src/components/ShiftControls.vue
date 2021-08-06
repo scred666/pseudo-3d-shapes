@@ -1,15 +1,22 @@
 <template>
   <div class="shift-controls">
-    <my-checkbox :val="isOffsetEnabled" label="shift:" @updateVal="toggleLayersOffset" />
-    <my-input :val="layersOffset" @updateVal="updateLayersOffset" v-if="isOffsetEnabled">
-      size:
-    </my-input>
+    <app-check-box :val="isOffsetEnabled" id="layers-offset" @updateVal="toggleLayersOffset">
+      offset:
+    </app-check-box>
+    <app-input
+      :val="layersOffset"
+      @updateVal="updateLayersOffset"
+      id="offset-value"
+      :is-disabled="!isOffsetEnabled"
+    >
+      Size
+    </app-input>
   </div>
 </template>
 
 <script>
-import MyCheckbox from '@/components/controls/MyCheckbox'
-import MyInput from '@/components/controls/MyInput'
+import AppCheckBox from '@/components/dump/AppCheckBox'
+import AppInput from '@/components/dump/AppInput'
 export default {
   props: {
     layersOffset: {
@@ -22,7 +29,7 @@ export default {
     }
   },
   name: 'ShiftControls',
-  components: { MyInput, MyCheckbox },
+  components: { AppInput, AppCheckBox },
   methods: {
     toggleLayersOffset(val) {
       this.$emit('toggleLayersOffset', val)

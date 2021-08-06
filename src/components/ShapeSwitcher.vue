@@ -16,7 +16,7 @@
 
 <script>
 import { types } from '@/utils/drawing'
-import MyRadio from '@/components/controls/MyRadio'
+import MyRadio from '@/components/dump/controls/MyRadio'
 
 export default {
   name: 'ShapeSwitcher',

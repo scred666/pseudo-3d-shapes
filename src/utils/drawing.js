@@ -201,42 +201,49 @@ const getLayer = {
   [types.pyramid]: (layer, startPoint) => drawPyramid(layer, startPoint)
 }
 
+export const layerParams = {
+  id: 'id',
+  fill: 'fill',
+  height: 'height',
+  type: 'type'
+}
+
 export const initialLayers = [
   {
-    id: 'wn2pf9ruh',
-    fill: '#006f74',
-    height: 160,
-    type: 'pyramid'
+    [layerParams.id]: 'wn2pf9ruh',
+    [layerParams.fill]: '#006f74',
+    [layerParams.height]: 160,
+    [layerParams.type]: 'pyramid'
   },
   {
-    id: '5e5kvp9zq',
-    fill: '#81cdc2',
-    height: 100,
-    type: 'cube'
+    [layerParams.id]: '5e5kvp9zq',
+    [layerParams.fill]: '#81cdc2',
+    [layerParams.height]: 100,
+    [layerParams.type]: 'cube'
   },
   {
-    id: 'mafj776kg',
-    fill: '#ffd79c',
-    height: 50,
-    type: 'cube'
+    [layerParams.id]: 'mafj776kg',
+    [layerParams.fill]: '#ffd79c',
+    [layerParams.height]: 50,
+    [layerParams.type]: 'cube'
   },
   {
-    id: '9luxy76ua',
-    fill: '#f38c76',
-    height: 70,
-    type: 'cube'
+    [layerParams.id]: '9luxy76ua',
+    [layerParams.fill]: '#f38c76',
+    [layerParams.height]: 70,
+    [layerParams.type]: 'cube'
   },
   {
-    id: 'egi0z6zdg',
-    fill: '#f24e4a',
-    height: 10,
-    type: 'cube'
+    [layerParams.id]: 'egi0z6zdg',
+    [layerParams.fill]: '#f24e4a',
+    [layerParams.height]: 10,
+    [layerParams.type]: 'cube'
   },
   {
-    id: 'kgl48aakt',
-    fill: '#182e46',
-    height: 40,
-    type: 'cube'
+    [layerParams.id]: 'kgl48aakt',
+    [layerParams.fill]: '#182e46',
+    [layerParams.height]: 40,
+    [layerParams.type]: 'cube'
   }
 ]
 
