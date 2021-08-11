@@ -1,0 +1,20 @@
+$main-font: 'Quicksand', sans-serif
+$blue: #1E71F5
+$black: #262626
+$light: #3e4351
+$white: #fff
+$semi-white: #eeeeee
+$grey: #dbdbdb
+$filter-black: invert(12%) sepia(2%) saturate(37%) hue-rotate(345deg) brightness(97%) contrast(92%)
+$filter-green: invert(76%) sepia(18%) saturate(640%) hue-rotate(122deg) brightness(97%) contrast(90%)
+
+$default-inner-box-shadow: inset rem(8) rem(8) rem(10) 0 rgba($grey, .5), inset rem(-8) rem(-8) rem(18) 0 rgba($white, .5)
+
+%default-outer-box-shadow
+  box-shadow: rem(8) rem(8) rem(18) $grey, rem(-8) rem(-8) rem(18) $white
+
+%default-inner-box-shadow
+  box-shadow: $default-inner-box-shadow
+
+%input-inner-box-shadow
+  box-shadow: inset rem(-1) rem(-1) rem(1) rgba($white, 0.7), inset rem(1) rem(1) rem(2) $grey

@@ -1,7 +1,7 @@
 <template>
-  <div class="shift-controls">
+  <div class="offset-controls">
     <app-check-box :val="isOffsetEnabled" id="layers-offset" @updateVal="toggleLayersOffset">
-      offset:
+      <common-text>offset</common-text>
     </app-check-box>
     <app-input
       :val="layersOffset"
@@ -9,7 +9,7 @@
       id="offset-value"
       :is-disabled="!isOffsetEnabled"
     >
-      Size
+      <common-text> size </common-text>
     </app-input>
   </div>
 </template>
@@ -17,6 +17,7 @@
 <script>
 import AppCheckBox from '@/components/dump/AppCheckBox'
 import AppInput from '@/components/dump/AppInput'
+import CommonText from '@/components/dump/CommonText'
 export default {
   props: {
     layersOffset: {
@@ -28,8 +29,8 @@ export default {
       required: true
     }
   },
-  name: 'ShiftControls',
-  components: { AppInput, AppCheckBox },
+  name: 'OffsetControls',
+  components: { CommonText, AppInput, AppCheckBox },
   methods: {
     toggleLayersOffset(val) {
       this.$emit('toggleLayersOffset', val)
@@ -42,8 +43,12 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.shift-controls
+.offset-controls
   display: grid
-  +media((gap: (320: rem(6), 768: rem(12))))
+  +media((gap: (0: rem(6), 768: rem(12))))
   justify-content: flex-start
+  +media((padding: (0: rem(20), 1024: rem(40))))
+  background: $semi-white
+  border-radius: rem(16)
+  @extend %default-outer-box-shadow
 </style>

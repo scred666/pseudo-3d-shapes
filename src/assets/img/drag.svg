@@ -1,17 +1,10 @@
-<svg width="40" height="33" viewBox="0 0 40 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 11.55H40" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M0 21.45H40" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M0 16.5004H40" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-    <mask id="path-4-inside-1" fill="white">
-        <path d="M14.2852 6.6L19.9994 0L25.7137 6.6"/>
-    </mask>
-    <path d="M14.2852 6.6L19.9994 0L25.7137 6.6" fill="currentColor"/>
-    <path d="M13.5291 5.94544C13.1676 6.36298 13.2131 6.99451 13.6306 7.35601C14.0481 7.71751 14.6797 7.67209 15.0412 7.25456L13.5291 5.94544ZM19.9994 0L20.7555 -0.654557C20.5655 -0.873944 20.2896 -1 19.9994 -1C19.7093 -1 19.4334 -0.873944 19.2434 -0.654557L19.9994 0ZM24.9577 7.25456C25.3192 7.67209 25.9507 7.71751 26.3683 7.35601C26.7858 6.99451 26.8312 6.36298 26.4697 5.94544L24.9577 7.25456ZM15.0412 7.25456L20.7555 0.654557L19.2434 -0.654557L13.5291 5.94544L15.0412 7.25456ZM19.2434 0.654557L24.9577 7.25456L26.4697 5.94544L20.7555 -0.654557L19.2434 0.654557Z"
-          fill="currentColor" mask="url(#path-4-inside-1)"/>
-    <mask id="path-6-inside-2" fill="white">
-        <path d="M25.7148 26.4L20.0006 33L14.2863 26.4"/>
-    </mask>
-    <path d="M25.7148 26.4L20.0006 33L14.2863 26.4" fill="currentColor"/>
-    <path d="M26.4709 27.0546C26.8324 26.637 26.7869 26.0055 26.3694 25.644C25.9519 25.2825 25.3203 25.3279 24.9588 25.7454L26.4709 27.0546ZM20.0006 33L19.2445 33.6546C19.4345 33.8739 19.7104 34 20.0006 34C20.2907 34 20.5666 33.8739 20.7566 33.6546L20.0006 33ZM15.0423 25.7454C14.6808 25.3279 14.0493 25.2825 13.6317 25.644C13.2142 26.0055 13.1688 26.637 13.5303 27.0546L15.0423 25.7454ZM24.9588 25.7454L19.2445 32.3454L20.7566 33.6546L26.4709 27.0546L24.9588 25.7454ZM20.7566 32.3454L15.0423 25.7454L13.5303 27.0546L19.2445 33.6546L20.7566 32.3454Z"
-          fill="currentColor" mask="url(#path-6-inside-2)"/>
+<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 11H25Z" fill="currentColor"/>
+<path d="M5 11H25" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+<path d="M5 19H25Z" fill="currentColor"/>
+<path d="M5 19H25" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+<path d="M5 15H25Z" fill="currentColor"/>
+<path d="M5 15H25" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+<path d="M9 8L14.9999 2L21 8" fill="currentColor"/>
+<path d="M9 22L14.9999 28L21 22" fill="currentColor"/>
 </svg>

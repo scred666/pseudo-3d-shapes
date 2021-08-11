@@ -7,16 +7,21 @@ const x2 = triangleWidth
 const x3 = rhombusWidth
 
 export const getTotalHeight = (layers, figureShift) => {
-  return (
-    layers.reduce((acc, val) => acc + val.height, 0) +
-    rhombusHeight +
-    (layers.length - 1) * figureShift
-  )
+  const additionalHeight = rhombusHeight + (layers.length - 1) * figureShift
+  return layers.reduce((acc, val) => acc + val.height, 0) + additionalHeight
 }
 
 export const calculateStartPoints = (totalHeight, layers, figureShift) => {
   let startPoint = totalHeight - rhombusHeight + figureShift
-  return layers.map(layer => (startPoint -= layer.height + figureShift))
+  // return layers.map(layer => (startPoint -= layer.height + figureShift))
+  return Object.assign(
+    {},
+    ...layers.map(layer => {
+      return {
+        [layer.id]: (startPoint -= layer.height + figureShift)
+      }
+    })
+  )
 }
 
 const drawHexagonShape = (layer, startPoint) => {
@@ -169,7 +174,7 @@ const getPoints = (layer, startPoint) => {
 }
 
 export const drawLayer = (layer, startPoint) => {
-  return getLayer[layer.type](layer, startPoint)
+  return getLayer[layer.shape](layer, startPoint)
 }
 
 const drawHexagon = (layer, startPoint) => {
@@ -191,65 +196,67 @@ const drawPyramid = (layer, startPoint) => {
   }
 }
 
-export const types = {
+export const layerShapes = {
   cube: 'cube',
   pyramid: 'pyramid'
 }
 
 const getLayer = {
-  [types.cube]: (layer, startPoint) => drawHexagon(layer, startPoint),
-  [types.pyramid]: (layer, startPoint) => drawPyramid(layer, startPoint)
+  [layerShapes.cube]: (layer, startPoint) => drawHexagon(layer, startPoint),
+  [layerShapes.pyramid]: (layer, startPoint) => drawPyramid(layer, startPoint)
 }
+
+export const generateRandomHEX = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`
 
 export const layerParams = {
   id: 'id',
   fill: 'fill',
   height: 'height',
-  type: 'type'
+  shape: 'shape'
 }
 
 export const initialLayers = [
   {
     [layerParams.id]: 'wn2pf9ruh',
-    [layerParams.fill]: '#006f74',
+    [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 160,
-    [layerParams.type]: 'pyramid'
+    [layerParams.shape]: 'pyramid'
   },
   {
     [layerParams.id]: '5e5kvp9zq',
-    [layerParams.fill]: '#81cdc2',
+    [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 100,
-    [layerParams.type]: 'cube'
+    [layerParams.shape]: 'cube'
   },
   {
     [layerParams.id]: 'mafj776kg',
-    [layerParams.fill]: '#ffd79c',
+    [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 50,
-    [layerParams.type]: 'cube'
+    [layerParams.shape]: 'cube'
   },
   {
     [layerParams.id]: '9luxy76ua',
-    [layerParams.fill]: '#f38c76',
+    [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 70,
-    [layerParams.type]: 'cube'
+    [layerParams.shape]: 'cube'
   },
   {
     [layerParams.id]: 'egi0z6zdg',
-    [layerParams.fill]: '#f24e4a',
+    [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 10,
-    [layerParams.type]: 'cube'
+    [layerParams.shape]: 'cube'
   },
   {
     [layerParams.id]: 'kgl48aakt',
-    [layerParams.fill]: '#182e46',
+    [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 40,
-    [layerParams.type]: 'cube'
+    [layerParams.shape]: 'cube'
   }
 ]
 
 export const defaultLayer = {
-  fill: '#81cdc2',
-  height: 100,
-  type: 'cube',
-  id: null
+  [layerParams.id]: null,
+  [layerParams.fill]: null,
+  [layerParams.height]: 100,
+  [layerParams.shape]: 'cube'
 }

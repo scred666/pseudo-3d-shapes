@@ -1,5 +1,5 @@
 <template>
-  <div class="controls">
+  <div class="controls" :class="{ 'controls--full-width': !isLayersExist }">
     <app-button @click="addNewLayer"> {{ prependBtnText }} new layer </app-button>
     <draggable
       v-model="layersList"
@@ -24,14 +24,16 @@
         />
       </transition-group>
     </draggable>
-    <app-button @click="addNewLayer(true)" v-if="isLayersExist"> Append new layer </app-button>
+    <app-button @click="addNewLayer(true)" v-if="isLayersExist" ref="append-btn">
+      Append new layer
+    </app-button>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import AppButton from '@/components/dump/AppButton'
-import ControlsLayer from '@/components/dump/controls/ControlsLayer'
+import ControlsLayer from '@/components/dump/ControlsLayer'
 
 export default {
   props: {
@@ -59,6 +61,11 @@ export default {
     },
     addNewLayer(isAppend = false) {
       this.$emit('addNewLayer', isAppend)
+      if (isAppend) {
+        this.$nextTick().then(() => {
+          this.$refs['append-btn'].$refs.button.scrollIntoView()
+        })
+      }
     },
     removeLayer(layerId) {
       this.$emit('removeLayer', layerId)
@@ -89,10 +96,12 @@ export default {
 <style scoped lang="sass">
 .controls
   display: grid
-  +media((gap: (320: rem(12), 768: rem(20))))
-  +media((width: (320: 100%, 768: rem(300), 1024: rem(400))))
+  +media((gap: (0: rem(12), 768: rem(20))))
+  max-width: rem(400)
+  > .app-button
+      min-width: rem(160)
   &__items
     &-list
       display: grid
-      +media((gap: (320: rem(12), 768: rem(20))))
+      +media((gap: (0: rem(12), 768: rem(20))))
 </style>

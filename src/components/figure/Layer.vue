@@ -1,36 +1,36 @@
 <template>
   <g class="layer">
-    <Shape :path="layer.shape" :fill="fill" class="layer__shape" />
+    <Shape :path="layerForDraw.shape" :fill="layer.fill" class="layer__shape" />
     <Polygons>
       <template>
         <Shape
-          :path="layer.decor.polygonTop"
+          :path="layerForDraw.decor.polygonTop"
           fill="url(#polygon-top)"
-          v-if="layer.decor.polygonTop"
+          v-if="layerForDraw.decor.polygonTop"
         />
         <Shape
           opacity="0.15"
-          :path="layer.decor.polygonLeft"
+          :path="layerForDraw.decor.polygonLeft"
           fill="white"
-          v-if="layer.decor.polygonLeft"
+          v-if="layerForDraw.decor.polygonLeft"
         />
         <Shape
           opacity="0.15"
-          :path="layer.decor.polygonRight"
+          :path="layerForDraw.decor.polygonRight"
           fill="black"
-          v-if="layer.decor.polygonRight"
+          v-if="layerForDraw.decor.polygonRight"
         />
         <Shape
           opacity="0.3"
-          :path="layer.decor.polygonRightTop"
+          :path="layerForDraw.decor.polygonRightTop"
           fill="black"
-          v-if="layer.decor.polygonRightTop"
+          v-if="layerForDraw.decor.polygonRightTop"
         />
       </template>
     </Polygons>
     <Shape
-      :path="layer.decor.circuit"
-      v-if="layer.decor.circuit"
+      :path="layerForDraw.decor.circuit"
+      v-if="layerForDraw.decor.circuit"
       class="layer__circuit"
       fill="none"
       stroke="#000"
@@ -43,20 +43,17 @@
 <script>
 import Shape from '@/components/figure/Shape'
 import Polygons from '@/components/figure/Polygons'
+import { drawLayer } from '@/utils/drawing'
 
 export default {
   props: {
-    type: {
-      type: String
-    },
-    fill: {
-      type: String,
-      default: null,
-      required: true
-    },
     layer: {
       type: Object,
-      default: () => ({})
+      required: true
+    },
+    startPoint: {
+      type: Number,
+      required: true
     }
   },
   components: {
@@ -64,7 +61,11 @@ export default {
     Polygons
   },
   name: 'Layer',
-  computed: {}
+  computed: {
+    layerForDraw() {
+      return drawLayer(this.layer, this.startPoint)
+    }
+  }
 }
 </script>
 

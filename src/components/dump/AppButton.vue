@@ -1,5 +1,5 @@
 <template>
-  <button :class="classes" @click="handle">
+  <button :class="classes" @click="handle" ref="button">
     <span class="app-button__icon" v-if="$slots.icon">
       <slot name="icon" />
     </span>
@@ -38,14 +38,14 @@ export default {
 
   background: $semi-white
   border-radius: rem(16)
-  box-shadow: rem(8) rem(8) rem(18) $grey, rem(-8) rem(-8) rem(18) $white
+  @extend %default-outer-box-shadow
   width: 100%
-  color: $green
+  color: $blue
 
   border: none
   outline: none
   cursor: pointer
-  +media((font-size: (320: rem(14), 768: rem(16))))
+  +media((font-size: (0: rem(14), 768: rem(16))))
   min-height: rem(40)
   font-family: $main-font
   font-weight: bold
@@ -56,12 +56,12 @@ export default {
       max-width: 100%
   @media (any-hover: hover)
     &:hover
-      box-shadow: inset rem(8) rem(8) rem(10) 0 rgba($grey, .5), inset rem(-8) rem(-8) rem(18) 0 rgba($white, .5)
+      box-shadow: $default-inner-box-shadow
       color: $light
   &--layer-control
     min-height: unset
-    height: rem(40)
-    width: rem(40)
+    +media((width: (0: rem(25), 576: rem(30), 768: rem(40))))
+    +media((height: (0: rem(25), 576: rem(30), 768: rem(40))))
     padding: 0
     border-radius: rem(4)
     display: flex
@@ -69,8 +69,9 @@ export default {
     align-items: center
     .app-button
       &__icon
-        color: $green
+        color: $blue
         max-width: rem(24)
+        width: 80%
         svg
           max-width: 100%
           height: auto

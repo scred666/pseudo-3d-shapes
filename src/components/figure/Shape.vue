@@ -1,19 +1,27 @@
-<template>
-  <path :d="path" :fill="fill" class="shape" />
-</template>
-
 <script>
+import { layerParams } from '@/utils/drawing'
+
 export default {
   props: {
     path: {
-      type: String
+      type: String,
+      required: true
     },
     fill: {
       type: String,
-      default: '#41b883'
+      required: true
     }
   },
-  name: 'Shape'
+  name: 'Shape',
+  render(createElement, context) {
+    return createElement('path', {
+      class: layerParams.shape,
+      attrs: {
+        d: this.path,
+        fill: this.fill
+      }
+    })
+  }
 }
 </script>
 

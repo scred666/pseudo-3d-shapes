@@ -1,15 +1,14 @@
-<template>
-  <g class="layer__decor">
-    <slot></slot>
-  </g>
-</template>
-
 <script>
 export default {
-  name: 'Polygons'
+  name: 'Polygons',
+  render(createElement) {
+    return createElement(
+      'g',
+      {
+        class: 'layer__decor'
+      },
+      this.$slots.default
+    )
+  }
 }
 </script>
-
-<style scoped>
-
-</style>

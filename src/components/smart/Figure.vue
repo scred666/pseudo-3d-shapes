@@ -7,11 +7,10 @@
     class="figure"
   >
     <Layer
-      v-for="(layer, i) in reversedLayers"
-      :type="layer.type"
-      :key="i"
-      :fill="layer.fill"
-      :layer="getLayer(layer, i)"
+      v-for="layer in reversedLayers"
+      :key="layer.id"
+      :layer="layer"
+      :start-point="startPoints[layer.id]"
     />
     <defs>
       <linearGradient id="polygon-top" x1="0%" y1="100%" x2="0%" y2="0%">
@@ -23,7 +22,7 @@
 </template>
 
 <script>
-import { calculateStartPoints, drawLayer, getTotalHeight } from '@/utils/drawing'
+import { calculateStartPoints, getTotalHeight } from '@/utils/drawing'
 import Layer from '@/components/figure/Layer'
 
 export default {
@@ -45,11 +44,6 @@ export default {
   components: {
     Layer
   },
-  methods: {
-    getLayer(layer, index) {
-      return drawLayer(layer, this.startPoints[index])
-    }
-  },
   computed: {
     reversedLayers() {
       return [...this.layers].reverse()
@@ -61,7 +55,8 @@ export default {
       return getTotalHeight(this.layers, this.computedFigureShift)
     },
     startPoints() {
-      return calculateStartPoints(this.totalHeight, this.reversedLayers, this.computedFigureShift)
+      const { totalHeight, reversedLayers, computedFigureShift } = this
+      return calculateStartPoints(totalHeight, reversedLayers, computedFigureShift)
     }
   }
 }

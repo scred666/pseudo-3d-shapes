@@ -40,6 +40,7 @@ export default {
 .app-checkbox
   display: flex
   align-items: center
+  gap: rem(10)
   &__box
     .input
       &:checked
@@ -49,7 +50,7 @@ export default {
               width: rem(16)
               transform: translate(calc(200% - 6px), -50%)
               border-width: rem(6)
-              background: $green
+              background: $blue
     .label
       cursor: pointer
       position: relative
@@ -82,6 +83,6 @@ export default {
         left: 50%
         transform: translate(-50%, -50%)
         background: $semi-white
-        box-shadow: inset rem(-1) rem(-1) rem(1) rgba($white, 0.7), inset rem(1) rem(1) rem(2) $grey
+        @extend %input-inner-box-shadow
         border-radius: rem(12)
 </style>

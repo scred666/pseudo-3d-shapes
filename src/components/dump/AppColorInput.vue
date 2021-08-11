@@ -1,15 +1,17 @@
 <template>
   <div class="color-switcher">
-    <div class="color-switcher__title">color:</div>
+    <div class="color-switcher__title" v-if="$slots.default">
+      <slot />
+    </div>
     <div class="color-switcher__input-wrapper">
-      <input type="color" class="input" :value="color" @change="handler" />
+      <input type="color" class="input" :value="color" @input="handler" />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ColorInput',
+  name: 'AppColorInput',
   props: {
     color: {
       type: String,
@@ -38,12 +40,9 @@ export default {
 .color-switcher
   display: flex
   align-items: center
-  &__title
-    @extend %input-title
-    z-index: 1
-    +media((margin-right: (320: rem(5), 768: rem(10))))
+  gap: rem(10)
   &__input-wrapper
-    box-shadow: rem(8) rem(8) rem(18) $grey, rem(-8) rem(-8) rem(18) $white
+    @extend %default-outer-box-shadow
     border-radius: rem(12)
     .input
       outline: none
@@ -52,8 +51,8 @@ export default {
       height: rem(24)
       border-radius: rem(12)
       padding: rem(6)
+      @extend %input-inner-box-shadow
       cursor: pointer
-      box-shadow: inset rem(-1) rem(-1) rem(1) rgba($white, 0.7), inset rem(1) rem(1) rem(4) $grey
       border: none
 
       &::-webkit-color-swatch-wrapper
