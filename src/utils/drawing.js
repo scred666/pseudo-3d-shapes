@@ -1,3 +1,5 @@
+import { getRandomId } from '@/utils/index'
+
 export const rhombusHeight = 164
 const triangleHeight = rhombusHeight / 2
 const rhombusWidth = 336
@@ -6,19 +8,19 @@ const x1 = 0
 const x2 = triangleWidth
 const x3 = rhombusWidth
 
-export const getTotalHeight = (layers, figureShift) => {
-  const additionalHeight = rhombusHeight + (layers.length - 1) * figureShift
+export const getTotalHeight = (layers, layersOffset = 0) => {
+  const additionalHeight = layers.length ? rhombusHeight + (layers.length - 1) * layersOffset : 0
   return layers.reduce((acc, val) => acc + val.height, 0) + additionalHeight
 }
 
-export const calculateStartPoints = (totalHeight, layers, figureShift) => {
-  let startPoint = totalHeight - rhombusHeight + figureShift
+export const calculateStartPoints = (totalHeight, layers, figureOffset) => {
+  let startPoint = totalHeight - rhombusHeight + figureOffset
   // return layers.map(layer => (startPoint -= layer.height + figureShift))
   return Object.assign(
     {},
     ...layers.map(layer => {
       return {
-        [layer.id]: (startPoint -= layer.height + figureShift)
+        [layer.id]: (startPoint -= layer.height + figureOffset)
       }
     })
   )
@@ -26,7 +28,7 @@ export const calculateStartPoints = (totalHeight, layers, figureShift) => {
 
 const drawHexagonShape = (layer, startPoint) => {
   const { y1, y2, y4, y5 } = getPoints(layer, startPoint)
-  return `M${x2} ${y1},
+  return `M${x2} ${y1}
           L${x1} ${y2}
           V${y4}
           L${x2} ${y5}
@@ -44,15 +46,6 @@ const drawHexagonDecor = (layer, startPoint) => {
 }
 
 const drawHexagonCircuit = (y1, y2, y3, y4, y5) => {
-  // return `M${x1} ${y2},
-  //         L${x2} ${y3}
-  //         L${x3} ${y2}
-  //         L${x2} ${y1}Z
-  //         V${y4}
-  //         M${x2} ${y3}
-  //         V${y5}
-  //         M${x3} ${y2}
-  //         V${y4}`
   return `M${x1} ${y2}
           V${y4}
           L${x2} ${y5}
@@ -66,7 +59,7 @@ const drawHexagonCircuit = (y1, y2, y3, y4, y5) => {
 }
 
 const drawHexagonPolygonTop = (y1, y2, y3) => {
-  return `M${x2} ${y1},
+  return `M${x2} ${y1}
           L${x3} ${y2}
           L${x2} ${y3}
           L${x1} ${y2}Z`
@@ -113,16 +106,6 @@ const drawPyramidDecor = (layer, startPoint) => {
 }
 
 const drawPyramidCircuit = (y2, y4, y5, yPyramid, isNeedAddons) => {
-  // const circuitExtend = `M${x2} ${y2}
-  //                        L${x1} ${y4}
-  //                        M${x3} ${y4}
-  //                        L${x2} ${y2}
-  //                        V ${y5}
-  //                        M${x2} ${yPyramid}
-  //                        L${x1} ${y4}
-  //                        M${x2} ${yPyramid}
-  //                        L${x3} ${y4}Z
-  //                        V ${y2}`
   const circuitExtend = `M${x2} ${yPyramid}
                          L${x1} ${y4}
                          L${x2} ${y5}
@@ -132,11 +115,6 @@ const drawPyramidCircuit = (y2, y4, y5, yPyramid, isNeedAddons) => {
                          L${x2} ${y2}
                          L${x3} ${y4}
                          `
-  // const circuit = `M${x2} ${y2}
-  //                  L${x1} ${y4}
-  //                  M${x3} ${y4}
-  //                  L${x2} ${y2}
-  //                  V ${y5}`
   const circuit = `M${x2} ${y2}
                    L${x1} ${y4}
                    L${x2} ${y5}
@@ -146,7 +124,7 @@ const drawPyramidCircuit = (y2, y4, y5, yPyramid, isNeedAddons) => {
 }
 
 const drawPyramidPolygonLeftBottom = (y2, y4, y5) => {
-  return `M${x2} ${y2},
+  return `M${x2} ${y2}
           L${x1} ${y4}
           L${x2} ${y5}Z`
 }
@@ -178,21 +156,18 @@ export const drawLayer = (layer, startPoint) => {
 }
 
 const drawHexagon = (layer, startPoint) => {
-  const { circuit, polygonTop, polygonRight, polygonLeft } = drawHexagonDecor(layer, startPoint)
+  const { ...props } = drawHexagonDecor(layer, startPoint)
   return {
     shape: drawHexagonShape(layer, startPoint),
-    decor: { circuit, polygonTop, polygonRight, polygonLeft }
+    decor: { ...props }
   }
 }
 
 const drawPyramid = (layer, startPoint) => {
-  const { circuit, polygonRight, polygonLeft, polygonRightTop } = drawPyramidDecor(
-    layer,
-    startPoint
-  )
+  const { ...props } = drawPyramidDecor(layer, startPoint)
   return {
     shape: drawPyramidShape(layer, startPoint),
-    decor: { circuit, polygonRight, polygonLeft, polygonRightTop }
+    decor: { ...props }
   }
 }
 
@@ -217,40 +192,40 @@ export const layerParams = {
 
 export const initialLayers = [
   {
-    [layerParams.id]: 'wn2pf9ruh',
+    [layerParams.id]: getRandomId(),
     [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 160,
-    [layerParams.shape]: 'pyramid'
+    [layerParams.shape]: layerShapes.pyramid
   },
   {
-    [layerParams.id]: '5e5kvp9zq',
+    [layerParams.id]: getRandomId(),
     [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 100,
-    [layerParams.shape]: 'cube'
+    [layerParams.shape]: layerShapes.cube
   },
   {
-    [layerParams.id]: 'mafj776kg',
+    [layerParams.id]: getRandomId(),
     [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 50,
-    [layerParams.shape]: 'cube'
+    [layerParams.shape]: layerShapes.cube
   },
   {
-    [layerParams.id]: '9luxy76ua',
+    [layerParams.id]: getRandomId(),
     [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 70,
-    [layerParams.shape]: 'cube'
+    [layerParams.shape]: layerShapes.cube
   },
   {
-    [layerParams.id]: 'egi0z6zdg',
+    [layerParams.id]: getRandomId(),
     [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 10,
-    [layerParams.shape]: 'cube'
+    [layerParams.shape]: layerShapes.cube
   },
   {
-    [layerParams.id]: 'kgl48aakt',
+    [layerParams.id]: getRandomId(),
     [layerParams.fill]: generateRandomHEX(),
     [layerParams.height]: 40,
-    [layerParams.shape]: 'cube'
+    [layerParams.shape]: layerShapes.cube
   }
 ]
 
