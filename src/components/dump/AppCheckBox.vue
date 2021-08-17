@@ -1,10 +1,10 @@
 <template>
   <div class="app-checkbox">
-    <div class="app-checkbox__title" v-if="$slots.default">
+    <div v-if="$slots.default" class="app-checkbox__title">
       <slot />
     </div>
     <div class="app-checkbox__box">
-      <input type="checkbox" v-model="computedVal" :id="id" class="input" hidden />
+      <input :id="id" v-model="computedVal" type="checkbox" class="input" hidden />
       <label class="label" :for="id"></label>
     </div>
   </div>

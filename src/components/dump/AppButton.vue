@@ -1,6 +1,6 @@
 <template>
-  <button :class="classes" @click="handle" ref="button">
-    <span class="app-button__icon" v-if="$slots.icon">
+  <button ref="button" :class="classes" @click="handle">
+    <span v-if="$slots.icon" class="app-button__icon">
       <slot name="icon" />
     </span>
     <slot />
@@ -13,12 +13,8 @@ export default {
   props: {
     mod: {
       type: String,
+      default: null,
       validator: v => ['layer-control'].includes(v)
-    }
-  },
-  methods: {
-    handle() {
-      this.$emit('click')
     }
   },
   computed: {
@@ -28,6 +24,11 @@ export default {
         'app-button': true,
         [`app-button--${mod}`]: mod
       }
+    }
+  },
+  methods: {
+    handle() {
+      this.$emit('click')
     }
   }
 }

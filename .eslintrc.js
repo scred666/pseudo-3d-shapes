@@ -5,7 +5,7 @@ module.exports = {
     node: true
   },
 
-  extends: ['plugin:vue/essential', '@vue/standard'],
+  extends: ['plugin:vue/recommended', '@vue/standard', 'plugin:prettier-vue/recommended'],
 
   parserOptions: {
     parser: 'babel-eslint'
@@ -15,22 +15,11 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'space-before-function-paren': 'off'
-    /* 'sort-imports': [2
-      2,
-      {
-        ignoreCase: false,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single']
-      }
-    ] */
   },
 
   overrides: [
     {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)'
-      ],
+      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
       env: {
         jest: true
       }

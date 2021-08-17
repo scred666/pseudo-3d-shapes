@@ -1,12 +1,12 @@
 <template>
   <div class="app-radio-button">
     <input
+      :id="`${id}-${value}`"
+      v-model="computedValue"
       class="input"
       type="radio"
       :value="value"
-      :id="`${id}-${value}`"
       :name="name"
-      v-model="computedValue"
       hidden
     />
     <label :for="`${id}-${value}`" class="label">
@@ -29,6 +29,9 @@ const images = {
 
 export default {
   name: 'AppRadioButton',
+  components: {
+    AppInlineSvg
+  },
   props: {
     id: {
       type: String,
@@ -48,9 +51,6 @@ export default {
       required: true,
       validator: v => shapesList.includes(v)
     }
-  },
-  components: {
-    AppInlineSvg
   },
   computed: {
     computedValue: {

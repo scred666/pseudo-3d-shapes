@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="__app">
     <Layout />
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap')
 body
   margin: 0
-#app
+#__app
   font-family: 'Quicksand', sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale

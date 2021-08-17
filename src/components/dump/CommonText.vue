@@ -1,12 +1,13 @@
 <script>
 export default {
+  name: 'CommonText',
   props: {
     type: {
       type: String,
+      default: null,
       validator: v => ['title'].includes(v)
     }
   },
-  name: 'CommonText',
   render(createElement) {
     return createElement(
       'div',

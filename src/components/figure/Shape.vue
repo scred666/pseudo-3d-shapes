@@ -2,6 +2,7 @@
 import { layerParams } from '@/utils/drawing'
 
 export default {
+  name: 'Shape',
   props: {
     path: {
       type: String,
@@ -12,8 +13,7 @@ export default {
       required: true
     }
   },
-  name: 'Shape',
-  render(createElement, context) {
+  render(createElement) {
     return createElement('path', {
       class: layerParams.shape,
       attrs: {

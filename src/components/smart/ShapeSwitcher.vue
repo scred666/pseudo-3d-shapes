@@ -2,12 +2,12 @@
   <div class="shape-switcher">
     <app-radio-button
       v-for="shape in layerShapes"
-      :name="`shape-switcher--${id}`"
+      :id="id"
       :key="shape"
+      :name="`shape-switcher--${id}`"
       :value="shape"
       :current-value="currentShape"
       @switchTo="selectNewShape"
-      :id="id"
     />
   </div>
 </template>
@@ -18,6 +18,7 @@ import AppRadioButton from '@/components/dump/AppRadioButton'
 
 export default {
   name: 'ShapeSwitcher',
+  components: { AppRadioButton },
   props: {
     currentShape: {
       type: String,
@@ -28,14 +29,13 @@ export default {
       default: null
     }
   },
-  components: { AppRadioButton },
+  computed: {
+    layerShapes: () => layerShapes
+  },
   methods: {
     selectNewShape(shape) {
       this.$emit('selectNewShape', shape)
     }
-  },
-  computed: {
-    layerShapes: () => layerShapes
   }
 }
 </script>

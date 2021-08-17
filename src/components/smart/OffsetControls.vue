@@ -1,13 +1,13 @@
 <template>
   <div class="offset-controls">
-    <app-check-box :val="isOffsetEnabled" id="layers-offset" @updateVal="toggleLayersOffset">
+    <app-check-box id="layers-offset" :val="isOffsetEnabled" @updateVal="toggleLayersOffset">
       <common-text>offset</common-text>
     </app-check-box>
     <app-input
-      :val="layersOffset"
-      @updateVal="updateLayersOffset"
       id="offset-value"
+      :val="layersOffset"
       :is-disabled="!isOffsetEnabled"
+      @updateVal="updateLayersOffset"
     >
       <common-text> size </common-text>
     </app-input>
@@ -19,6 +19,8 @@ import AppCheckBox from '@/components/dump/AppCheckBox'
 import AppInput from '@/components/dump/AppInput'
 import CommonText from '@/components/dump/CommonText'
 export default {
+  name: 'OffsetControls',
+  components: { CommonText, AppInput, AppCheckBox },
   props: {
     layersOffset: {
       type: Number,
@@ -29,8 +31,6 @@ export default {
       required: true
     }
   },
-  name: 'OffsetControls',
-  components: { CommonText, AppInput, AppCheckBox },
   methods: {
     toggleLayersOffset(val) {
       this.$emit('toggleLayersOffset', val)

@@ -16,18 +16,18 @@
           @moveDown="moveDown"
         />
       </div>
-      <div class="layout__figure" v-if="isLayersExist">
+      <div v-if="isLayersExist" class="layout__figure">
         <Figure
           :layers="layers"
           :layers-offset="layersOffset"
           :is-offset-enabled="isOffsetEnabled"
         />
       </div>
-      <MatchMedia query="(max-width: 1023px)" v-slot="{ matches }" v-if="isLayersExist">
+      <MatchMedia v-if="isLayersExist" v-slot="{ matches }" query="(max-width: 1023px)">
         <component
           :is="matches ? 'tippy' : 'div'"
           trigger="click"
-          appendTo="parent"
+          append-to="parent"
           class="layout__offset"
           placement="bottom-end"
           interactive
@@ -65,11 +65,6 @@ const directions = {
 }
 export default {
   name: 'Layout',
-  data: () => ({
-    layers: clone(initialLayers),
-    layersOffset: 6,
-    isOffsetEnabled: true
-  }),
   components: {
     AppInlineSvg,
     CommonText,
@@ -77,6 +72,16 @@ export default {
     Figure,
     Controls,
     MatchMedia
+  },
+  data: () => ({
+    layers: clone(initialLayers),
+    layersOffset: 6,
+    isOffsetEnabled: true
+  }),
+  computed: {
+    isLayersExist() {
+      return !!this.layers.length
+    }
   },
   methods: {
     updateLayersOrder(layers) {
@@ -128,11 +133,6 @@ export default {
     updateLayersOffset(val) {
       this.layersOffset = val
     }
-  },
-  computed: {
-    isLayersExist() {
-      return !!this.layers.length
-    }
   }
 }
 </script>
@@ -180,7 +180,7 @@ export default {
     // margin-left: auto
     .svg-icon
       max-width: rem(30)
-  &__layers
+  // &__layers
     // +media((grid-column-start: (320: 1, 1024: unset)))
   &__figure
     +media((padding: (0: rem(10), 400: rem(20), 768: rem(30), 1024: rem(40))))

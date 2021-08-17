@@ -7,8 +7,8 @@
       <div class="layer__controls-inputs">
         <div class="top">
           <app-input
-            :val="layer.height"
             :id="`${layer.id}-height`"
+            :val="layer.height"
             @updateVal="updateLayerParam($event, layerParams.height)"
           >
             <common-text> {{ layerParams.height }} </common-text>
@@ -20,17 +20,17 @@
         </div>
         <div class="bottom">
           <shape-switcher
-            :currentShape="layer.shape"
             :id="layer.id"
+            :current-shape="layer.shape"
             @selectNewShape="updateLayerParam($event, layerParams.shape)"
           />
         </div>
       </div>
       <div class="layer__controls-nav">
         <app-button
-          mod="layer-control"
           v-for="button in actionButtons"
           :key="button.action"
+          mod="layer-control"
           @click="handleAction(button.action)"
         >
           <template #icon>
@@ -66,12 +66,6 @@ const actionButtons = [
   }
 ]
 export default {
-  props: {
-    layer: {
-      type: Object,
-      required: true
-    }
-  },
   name: 'ControlsLayer',
   components: {
     AppColorInput,
@@ -81,6 +75,16 @@ export default {
     AppButton,
     ShapeSwitcher
   },
+  props: {
+    layer: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    actionButtons: () => actionButtons,
+    layerParams: () => layerParams
+  },
   methods: {
     updateLayerParam(val, param) {
       this.$emit('updateParam', { val, id: this.layer.id, param })
@@ -88,10 +92,6 @@ export default {
     handleAction(action) {
       this.$emit(action, this.layer.id)
     }
-  },
-  computed: {
-    actionButtons: () => actionButtons,
-    layerParams: () => layerParams
   }
 }
 </script>

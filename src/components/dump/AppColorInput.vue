@@ -1,6 +1,6 @@
 <template>
   <div class="color-switcher">
-    <div class="color-switcher__title" v-if="$slots.default">
+    <div v-if="$slots.default" class="color-switcher__title">
       <slot />
     </div>
     <div class="color-switcher__input-wrapper">

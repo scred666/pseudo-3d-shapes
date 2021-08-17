@@ -2,21 +2,21 @@
   <div class="controls" :class="{ 'controls--full-width': !isLayersExist }">
     <app-button @click="addNewLayer"> {{ prependBtnText }} new layer </app-button>
     <draggable
+      v-if="isLayersExist"
       v-model="layersList"
       group="layers"
-      @start="drag = true"
-      @end="drag = false"
       animation="200"
       tag="div"
       handle=".handle"
       class="controls__items"
-      v-if="isLayersExist"
+      @start="drag = true"
+      @end="drag = false"
     >
       <transition-group name="flip-list" tag="div" class="controls__items-list">
         <controls-layer
           v-for="layer in layersList"
-          :layer="layer"
           :key="layer.id"
+          :layer="layer"
           @updateParam="updateParam"
           @removeLayer="removeLayer"
           @moveUp="moveUp"
@@ -24,7 +24,7 @@
         />
       </transition-group>
     </draggable>
-    <app-button @click="addNewLayer(true)" v-if="isLayersExist" ref="append-btn">
+    <app-button v-if="isLayersExist" ref="append-btn" @click="addNewLayer(true)">
       Append new layer
     </app-button>
   </div>
@@ -36,6 +36,12 @@ import AppButton from '@/components/dump/AppButton'
 import ControlsLayer from '@/components/dump/ControlsLayer'
 
 export default {
+  name: 'Controls',
+  components: {
+    ControlsLayer,
+    AppButton,
+    draggable
+  },
   props: {
     isLayersExist: {
       type: Boolean,
@@ -46,14 +52,21 @@ export default {
       required: true
     }
   },
-  name: 'Controls',
   data: () => ({
     drag: false
   }),
-  components: {
-    ControlsLayer,
-    AppButton,
-    draggable
+  computed: {
+    layersList: {
+      get() {
+        return this.layers
+      },
+      set(val) {
+        this.$emit('updateLayersOrder', val)
+      }
+    },
+    prependBtnText() {
+      return this.isLayersExist ? 'Prepend' : 'Add'
+    }
   },
   methods: {
     updateParam(obj) {
@@ -75,19 +88,6 @@ export default {
     },
     moveUp(layerId) {
       this.$emit('moveUp', layerId)
-    }
-  },
-  computed: {
-    layersList: {
-      get() {
-        return this.layers
-      },
-      set(val) {
-        this.$emit('updateLayersOrder', val)
-      }
-    },
-    prependBtnText() {
-      return this.isLayersExist ? 'Prepend' : 'Add'
     }
   }
 }

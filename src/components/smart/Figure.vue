@@ -14,7 +14,7 @@
     />
     <defs>
       <linearGradient id="polygon-top" x1="0%" y1="100%" x2="0%" y2="0%">
-        <stop stop-color="white" stop-opacity="0.35" />
+        <stop offset="0" stop-color="white" stop-opacity="0.35" />
         <stop offset="1" stop-color="white" stop-opacity="0.2" />
       </linearGradient>
     </defs>
@@ -26,6 +26,10 @@ import { calculateStartPoints, getTotalHeight } from '@/utils/drawing'
 import Layer from '@/components/figure/Layer'
 
 export default {
+  name: 'Figure',
+  components: {
+    Layer
+  },
   props: {
     layers: {
       type: Array,
@@ -39,10 +43,6 @@ export default {
       type: Boolean,
       required: true
     }
-  },
-  name: 'Figure',
-  components: {
-    Layer
   },
   computed: {
     reversedLayers() {

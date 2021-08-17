@@ -4,33 +4,33 @@
     <Polygons>
       <template>
         <Shape
+          v-if="layerForDraw.decor.polygonTop"
           :path="layerForDraw.decor.polygonTop"
           fill="url(#polygon-top)"
-          v-if="layerForDraw.decor.polygonTop"
         />
         <Shape
+          v-if="layerForDraw.decor.polygonLeft"
           opacity="0.15"
           :path="layerForDraw.decor.polygonLeft"
           fill="white"
-          v-if="layerForDraw.decor.polygonLeft"
         />
         <Shape
+          v-if="layerForDraw.decor.polygonRight"
           opacity="0.15"
           :path="layerForDraw.decor.polygonRight"
           fill="black"
-          v-if="layerForDraw.decor.polygonRight"
         />
         <Shape
+          v-if="layerForDraw.decor.polygonRightTop"
           opacity="0.3"
           :path="layerForDraw.decor.polygonRightTop"
           fill="black"
-          v-if="layerForDraw.decor.polygonRightTop"
         />
       </template>
     </Polygons>
     <Shape
-      :path="layerForDraw.decor.circuit"
       v-if="layerForDraw.decor.circuit"
+      :path="layerForDraw.decor.circuit"
       class="layer__circuit"
       fill="none"
       stroke="#000"
@@ -46,6 +46,11 @@ import Polygons from '@/components/figure/Polygons'
 import { drawLayer } from '@/utils/drawing'
 
 export default {
+  name: 'Layer',
+  components: {
+    Shape,
+    Polygons
+  },
   props: {
     layer: {
       type: Object,
@@ -56,11 +61,6 @@ export default {
       required: true
     }
   },
-  components: {
-    Shape,
-    Polygons
-  },
-  name: 'Layer',
   computed: {
     layerForDraw() {
       return drawLayer(this.layer, this.startPoint)

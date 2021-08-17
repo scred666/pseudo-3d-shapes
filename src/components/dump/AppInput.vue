@@ -1,14 +1,14 @@
 <template>
   <div class="app-input">
-    <label class="label" v-if="$slots.default" :for="id">
+    <label v-if="$slots.default" class="label" :for="id">
       <slot />
     </label>
     <div class="app-input__wrapper">
       <input
-        type="number"
-        class="input"
         :id="id"
         v-model.number="computedVal"
+        type="number"
+        class="input"
         :disabled="isDisabled"
       />
     </div>
